@@ -32,13 +32,15 @@ export const articles: Article[] = [
 	},
 ]
 
-/** Curated collections shown on the home page. */
+/** Curated collections — image-led cards with varied proportions. */
 export const collections: Collection[] = [
 	{
 		id: 'coll-arm',
 		slug: 'arm-tattoos',
 		title: 'Тату на руке',
-		description: 'От запястья до плеча — лучшие идеи для рук',
+		description: 'От запястья до плеча',
+		coverImage: getPlaceholder('collArm'),
+		layoutVariant: 'wide',
 		designIds: [
 			'design-wolf-realism',
 			'design-snake-black',
@@ -49,7 +51,9 @@ export const collections: Collection[] = [
 		id: 'coll-small',
 		slug: 'small-tattoos',
 		title: 'Маленькие тату',
-		description: 'Компактные эскизы для первой тату или минimal-look',
+		description: 'Компактные эскизы',
+		coverImage: getPlaceholder('collSmall'),
+		layoutVariant: 'portrait',
 		designIds: [
 			'design-wolf-minimal',
 			'design-moon-dot',
@@ -60,7 +64,9 @@ export const collections: Collection[] = [
 		id: 'coll-meaning',
 		slug: 'meaningful-tattoos',
 		title: 'Тату со смыслом',
-		description: 'Символы с глубоким личным и культурным значением',
+		description: 'Символы с глубоким значением',
+		coverImage: getPlaceholder('collMeaning'),
+		layoutVariant: 'square',
 		designIds: [
 			'design-wolf-geo',
 			'design-bird-linework',

@@ -144,7 +144,65 @@ body {
 	display: none;
 }
 
-/* Masonry-style gallery using CSS columns */
+/* Editorial discovery grid — varied aspect ratios with visual rhythm */
+.gallery-editorial {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: var(--space-2);
+}
+
+@media (min-width: 640px) {
+	.gallery-editorial {
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-3);
+	}
+}
+
+@media (min-width: 1024px) {
+	.gallery-editorial {
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--space-4);
+	}
+}
+
+.gallery-editorial-item.gallery-item-tall {
+	grid-row: span 2;
+}
+
+.gallery-editorial-item.gallery-item-landscape {
+	grid-column: span 2;
+}
+
+@media (min-width: 640px) {
+	.gallery-editorial-item.gallery-item-landscape {
+		grid-column: span 1;
+	}
+}
+
+@media (min-width: 1024px) {
+	.gallery-editorial-item.gallery-item-landscape {
+		grid-column: span 2;
+	}
+}
+
+/* Try-on responsive grid — preview dominant on all breakpoints */
+.try-on-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+	.try-on-grid {
+		grid-template-columns: 1fr 1.35fr 220px;
+		grid-template-rows: auto auto;
+	}
+
+	.try-on-selector {
+		grid-column: 1 / -1;
+	}
+}
+
+/* Masonry-style gallery using CSS columns (legacy fallback) */
 .gallery-masonry {
 	columns: 2;
 	column-gap: var(--space-3);

@@ -8,7 +8,8 @@ export const motifs: Motif[] = [
 		slug: 'wolf',
 		title: 'Тату волк',
 		intro:
-			'Волк — один из самых популярных мотивов в тату-культуре. Сильный, узнаваемый символ свободы, верности и инстинкта. Эскизы волка работают и как крупная работа на плече, и как лаконичный знак на запястье.',
+			'Волк — один из самых популярных мотивов в тату-культуре. Сильный, узнаваемый символ свободы, верности и инстинкта.',
+		semanticTags: ['Свобода', 'Сила', 'Верность', 'Независимость'],
 		meanings: [
 			'Свобода и независимость — волк как символ жизни вне стадных правил',
 			'Верность и защита семьи — образ вожака стаи',
@@ -25,23 +26,23 @@ export const motifs: Motif[] = [
 			},
 			{
 				id: 'var-wolf-snarl',
-				title: 'Оскал',
+				title: 'Оскал волка',
 				description:
 					'Агрессивная, мощная подача — акцент на защиту территории и внутреннюю силу.',
 				image: getPlaceholder('wolfSnarl'),
 			},
 			{
 				id: 'var-wolf-geo',
-				title: 'Геометрия',
+				title: 'Геометрический волк',
 				description:
-					'Волк в геометрической стилистике — современный, графичный вариант для минimalist-эстетики.',
+					'Волк в геометрической стилистике — современный, графичный вариант.',
 				image: getPlaceholder('wolfGeo'),
 			},
 			{
 				id: 'var-wolf-minimal',
-				title: 'Минимализм',
+				title: 'Волк минимализм',
 				description:
-					'Лаконичный силуэт или контур — идеален для маленькой тату на запястье или лодыжке.',
+					'Лаконичный силуэт или контур — идеален для маленькой тату.',
 				image: getPlaceholder('wolfMinimal'),
 			},
 		],
@@ -52,6 +53,11 @@ export const motifs: Motif[] = [
 			'design-wolf-realism',
 			'design-wolf-minimal',
 			'design-wolf-geo',
+		],
+		galleryImages: [
+			getPlaceholder('wolfGallery01'),
+			getPlaceholder('wolfGallery02'),
+			getPlaceholder('wolfGallery03'),
 		],
 		image: getPlaceholder('wolfHero'),
 	},

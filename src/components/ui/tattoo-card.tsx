@@ -3,81 +3,82 @@ import Image from 'next/image'
 import type { TattooDesign } from '@/types/content'
 import type { Locale } from '@/types/content'
 import { resolveImageUrl } from '@/lib/images/resolve-image-url'
+import { getMotifLabel, getGalleryAspectClass } from '@/lib/content/motif-labels'
 import { getStyleBySlug } from '@/data/fixtures/styles'
-import { getBodyPartBySlug } from '@/data/fixtures/body-parts'
 
 interface TattooCardProps {
 	design: TattooDesign
 	locale: Locale
 	showTryOn?: boolean
 	priority?: boolean
+	/** Discovery cards hide heavy metadata — image leads. */
+	variant?: 'discovery' | 'compact'
 }
 
-/** Gallery card for a single tattoo design sketch. */
+/** Lightweight discovery card — image-first with minimal caption. */
 export function TattooCard({
 	design,
 	locale,
 	showTryOn = true,
 	priority = false,
+	variant = 'discovery',
 }: TattooCardProps) {
 	const style = getStyleBySlug(design.styleSlug)
-	const bodyPart = getBodyPartBySlug(design.bodyPartSlug)
 	const motifHref = `/${locale}/tattoo/${design.motifSlug}`
+	const motifLabel = getMotifLabel(design.motifSlug)
+	const aspectClass = getGalleryAspectClass(design.galleryVariant)
 
 	return (
-		<article className="group relative overflow-hidden rounded-xl bg-bg-elevated">
-			<Link href={motifHref} className="block">
-				<div className="relative overflow-hidden bg-bg-muted">
+		<article className="group relative">
+			<Link href={motifHref} className="block overflow-hidden rounded-xl bg-bg-muted">
+				<div className={`relative ${aspectClass} overflow-hidden`}>
 					<Image
 						src={resolveImageUrl(design.image)}
 						alt={design.image.alt}
-						width={design.image.width}
-						height={design.image.height}
-						className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-300"
+						fill
+						className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
 						priority={priority}
 						sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
 					/>
 				</div>
 			</Link>
 
-			<div className="p-3 sm:p-4">
-				<Link href={motifHref}>
-					<h3 className="text-sm font-medium text-text-primary line-clamp-1 hover:underline">
-						{design.title}
-					</h3>
-				</Link>
-				<div className="mt-1.5 flex flex-wrap gap-1.5">
-					{style && (
-						<span className="text-xs text-text-muted">{style.label}</span>
-					)}
-					{bodyPart && (
-						<>
-							<span className="text-xs text-text-muted" aria-hidden="true">
-								·
-							</span>
-							<span className="text-xs text-text-muted">{bodyPart.label}</span>
-						</>
-					)}
-				</div>
-
-				<div className="mt-3 flex items-center justify-between gap-2">
-					<button
-						type="button"
-						className="flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle text-text-muted hover:text-text-primary hover:border-border-strong transition-colors"
-						aria-label="В избранное"
+			{variant === 'discovery' && (
+				<div className="mt-2 flex items-center justify-between gap-2 px-0.5">
+					<Link
+						href={motifHref}
+						className="text-xs text-text-secondary hover:text-text-primary transition-colors truncate"
 					>
-						<HeartIcon />
-					</button>
-					{showTryOn && (
-						<Link
-							href={`/${locale}/try-tattoo`}
-							className="text-xs font-medium text-text-secondary hover:text-text-primary transition-colors py-2 px-1 min-h-[36px] flex items-center"
+						{motifLabel}
+						{style && (
+							<span className="text-text-muted"> · {style.label.toLowerCase()}</span>
+						)}
+					</Link>
+					<div className="flex items-center gap-1 shrink-0">
+						<button
+							type="button"
+							className="flex h-8 w-8 items-center justify-center text-text-muted hover:text-text-primary transition-colors"
+							aria-label="В избранное"
 						>
-							Примерить
-						</Link>
-					)}
+							<HeartIcon />
+						</button>
+						{showTryOn && (
+							<Link
+								href={`/${locale}/try-tattoo`}
+								className="text-xs text-text-muted hover:text-text-primary transition-colors px-1 py-1"
+							>
+								Примерить
+							</Link>
+						)}
+					</div>
 				</div>
-			</div>
+			)}
+
+			{variant === 'compact' && (
+				<Link href={motifHref} className="mt-1.5 block text-xs text-text-muted truncate">
+					{design.title}
+				</Link>
+			)}
 		</article>
 	)
 }
@@ -85,8 +86,8 @@ export function TattooCard({
 function HeartIcon() {
 	return (
 		<svg
-			width="16"
-			height="16"
+			width="15"
+			height="15"
 			viewBox="0 0 24 24"
 			fill="none"
 			stroke="currentColor"

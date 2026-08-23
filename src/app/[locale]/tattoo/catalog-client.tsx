@@ -1,109 +1,131 @@
 'use client'
 
 import { useState } from 'react'
+import { DiscoveryChips } from '@/components/ui/discovery-chips'
 import { CategoryChip } from '@/components/ui/category-chip'
 import { TattooGallery } from '@/components/ui/tattoo-gallery'
-import { categories } from '@/data/fixtures/categories'
 import { styles } from '@/data/fixtures/styles'
 import { designs } from '@/data/fixtures/designs'
 import type { Locale } from '@/types/content'
+
+/** Primary catalog navigation chips — gallery-first UX. */
+const primaryNav = [
+	{ slug: 'for-you', label: 'Для тебя' },
+	{ slug: 'all', label: 'Все' },
+	{ slug: 'small', label: 'Маленькие' },
+	{ slug: 'for-women', label: 'Для девушек' },
+	{ slug: 'for-men', label: 'Для мужчин' },
+	{ slug: 'arm', label: 'На руке' },
+	{ slug: 'minimalism', label: 'Минимализм' },
+	{ slug: 'inscriptions', label: 'Надписи' },
+]
 
 interface CatalogClientProps {
 	locale: Locale
 	title: string
 	intro: string
-	filtersLabel: string
 	loadMoreLabel: string
-	resultsLabel: string
 }
 
-/** Client-side catalog with UI-only filter chips (Phase 1A). */
+/** Gallery-first catalog with compact filter navigation. */
 export function CatalogClient({
 	locale,
 	title,
 	intro,
-	filtersLabel,
 	loadMoreLabel,
-	resultsLabel,
 }: CatalogClientProps) {
-	const [activeCategory, setActiveCategory] = useState<string | null>(null)
+	const [activeNav, setActiveNav] = useState<string | null>('for-you')
 	const [activeStyle, setActiveStyle] = useState<string | null>(null)
+	const [showStyleFilters, setShowStyleFilters] = useState(false)
 	const [visibleCount, setVisibleCount] = useState(8)
 
 	const filteredDesigns = designs.filter((design) => {
-		const matchesCategory =
-			!activeCategory || design.categorySlugs.includes(activeCategory)
-		const matchesStyle =
-			!activeStyle || design.styleSlug === activeStyle
-		return matchesCategory && matchesStyle
+		if (!activeNav || activeNav === 'for-you' || activeNav === 'all') {
+			return true
+		}
+
+		if (activeNav === 'arm') {
+			return ['arm', 'forearm', 'wrist', 'shoulder'].includes(
+				design.bodyPartSlug,
+			)
+		}
+
+		return design.categorySlugs.includes(activeNav)
+	}).filter((design) => {
+		if (!activeStyle) return true
+		return design.styleSlug === activeStyle
 	})
 
 	const visibleDesigns = filteredDesigns.slice(0, visibleCount)
 	const hasMore = visibleCount < filteredDesigns.length
 
 	return (
-		<div className="container-app py-8 md:py-12">
-			<header className="max-w-2xl mb-8 md:mb-10">
-				<h1 className="font-brand text-3xl sm:text-4xl font-semibold tracking-tight text-text-primary">
+		<div className="container-app py-6 md:py-8">
+			{/* Compact header — gallery follows quickly */}
+			<header className="mb-4 md:mb-5">
+				<h1 className="font-brand text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
 					{title}
 				</h1>
-				<p className="mt-4 text-base text-text-secondary leading-relaxed">
+				<p className="mt-2 text-sm text-text-secondary leading-relaxed max-w-xl line-clamp-2 sm:line-clamp-none">
 					{intro}
-				</p>
-				<p className="mt-3 text-sm text-text-muted">
-					{filteredDesigns.length} {resultsLabel}
 				</p>
 			</header>
 
-			{/* Category filters */}
-			<div className="mb-4">
-				<p className="text-xs font-medium uppercase tracking-wider text-text-muted mb-2">
-					{filtersLabel}
-				</p>
-				<div className="chips-scroll">
-					<CategoryChip
-						label="Все"
-						isActive={activeCategory === null}
-						onClick={() => setActiveCategory(null)}
-					/>
-					{categories.map((category) => (
-						<CategoryChip
-							key={category.id}
-							label={category.label}
-							isActive={activeCategory === category.slug}
-							onClick={() => setActiveCategory(category.slug)}
-						/>
-					))}
-				</div>
+			{/* Primary navigation row */}
+			<div className="mb-3">
+				<DiscoveryChips
+					items={primaryNav.map((item) => ({
+						label: item.label,
+						isActive: activeNav === item.slug,
+						onClick: () => setActiveNav(item.slug),
+					}))}
+				/>
 			</div>
 
-			{/* Style filters */}
-			<div className="mb-8">
-				<div className="chips-scroll">
-					<CategoryChip
-						label="Все стили"
-						isActive={activeStyle === null}
-						onClick={() => setActiveStyle(null)}
-					/>
-					{styles.map((style) => (
+			{/* Secondary style filters — visually subdued */}
+			<div className="mb-5 flex items-center gap-3">
+				<button
+					type="button"
+					onClick={() => setShowStyleFilters((value) => !value)}
+					className="text-xs text-text-muted hover:text-text-secondary transition-colors py-1"
+				>
+					Фильтры
+					{activeStyle && (
+						<span className="ml-1 text-text-primary">· {activeStyle}</span>
+					)}
+				</button>
+				{showStyleFilters && (
+					<div className="chips-scroll flex-1">
 						<CategoryChip
-							key={style.id}
-							label={style.label}
-							isActive={activeStyle === style.slug}
-							onClick={() => setActiveStyle(style.slug)}
+							label="Все стили"
+							isActive={activeStyle === null}
+							onClick={() => setActiveStyle(null)}
 						/>
-					))}
-				</div>
+						{styles.map((style) => (
+							<CategoryChip
+								key={style.id}
+								label={style.label}
+								isActive={activeStyle === style.slug}
+								onClick={() => setActiveStyle(style.slug)}
+							/>
+						))}
+					</div>
+				)}
 			</div>
 
-			<TattooGallery designs={visibleDesigns} locale={locale} priorityCount={4} />
+			<TattooGallery
+				designs={visibleDesigns}
+				locale={locale}
+				priorityCount={6}
+				layout="editorial"
+			/>
 
 			{hasMore && (
-				<div className="mt-10 text-center">
+				<div className="mt-8 text-center">
 					<button
 						type="button"
 						onClick={() => setVisibleCount((count) => count + 4)}
-						className="inline-flex items-center justify-center rounded-full border border-border-strong bg-bg-elevated px-8 py-3 text-sm font-medium text-text-primary hover:bg-bg-secondary transition-colors min-h-[44px]"
+						className="inline-flex items-center justify-center rounded-full border border-border-subtle px-6 py-2.5 text-sm text-text-secondary hover:text-text-primary hover:border-border-strong transition-colors min-h-[44px]"
 					>
 						{loadMoreLabel}
 					</button>

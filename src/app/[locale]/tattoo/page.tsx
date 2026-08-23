@@ -42,9 +42,7 @@ export default async function CatalogPage({ params }: CatalogPageProps) {
 			locale={locale}
 			title={dictionary.catalog.title}
 			intro={dictionary.catalog.intro}
-			filtersLabel={dictionary.catalog.filters}
 			loadMoreLabel={dictionary.catalog.loadMore}
-			resultsLabel={dictionary.catalog.results}
 		/>
 	)
 }

@@ -1,3 +1,6 @@
+/** Gallery card size variant — drives editorial masonry rhythm. */
+export type GalleryVariant = 'portrait' | 'tall' | 'square' | 'landscape'
+
 /** Supported locale codes — only `ru` has content in Phase 1A. */
 export type Locale = 'ru' | 'en'
 
@@ -11,6 +14,8 @@ export interface TattooDesign {
 	bodyPartSlug: string
 	categorySlugs: string[]
 	image: MediaAsset
+	/** Controls masonry aspect ratio in discovery galleries. */
+	galleryVariant?: GalleryVariant
 	isPopular?: boolean
 }
 
@@ -20,12 +25,16 @@ export interface Motif {
 	slug: string
 	title: string
 	intro: string
+	/** Short semantic tags shown under the H1. */
+	semanticTags: string[]
 	meanings: string[]
 	variations: MotifVariation[]
 	bodyPartSlugs: string[]
 	styleSlugs: string[]
 	relatedSlugs: string[]
 	designIds: string[]
+	/** Hero gallery images for editorial visual composition. */
+	galleryImages: MediaAsset[]
 	image: MediaAsset
 }
 
@@ -77,6 +86,10 @@ export interface Collection {
 	title: string
 	description: string
 	designIds: string[]
+	/** Cover image for image-led collection card. */
+	coverImage: MediaAsset
+	/** Card layout proportion hint. */
+	layoutVariant?: 'wide' | 'portrait' | 'square'
 }
 
 /**
@@ -94,4 +107,13 @@ export interface MediaAsset {
 	storageKey?: string
 	/** Future: override CDN origin for this asset. */
 	cdnBase?: string
+}
+
+/** Hero collage slot — maps to replaceable visual assets. */
+export interface HeroCollageSlot {
+	id: string
+	image: MediaAsset
+	/** CSS positioning class for editorial overlap layout. */
+	layoutClass: string
+	priority?: boolean
 }

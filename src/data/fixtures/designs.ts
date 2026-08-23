@@ -1,7 +1,7 @@
 import type { TattooDesign } from '@/types/content'
 import { getPlaceholder } from '@/data/fixtures/placeholders'
 
-/** Demo tattoo designs for galleries and catalog prototype. */
+/** Demo tattoo designs — varied gallery variants for editorial masonry. */
 export const designs: TattooDesign[] = [
 	{
 		id: 'design-wolf-realism',
@@ -12,6 +12,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'forearm',
 		categorySlugs: ['for-men', 'with-meaning'],
 		image: getPlaceholder('design01'),
+		galleryVariant: 'portrait',
 		isPopular: true,
 	},
 	{
@@ -23,6 +24,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'wrist',
 		categorySlugs: ['small', 'minimalism'],
 		image: getPlaceholder('design02'),
+		galleryVariant: 'tall',
 		isPopular: true,
 	},
 	{
@@ -34,6 +36,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'arm',
 		categorySlugs: ['for-men', 'minimalism'],
 		image: getPlaceholder('design03'),
+		galleryVariant: 'square',
 		isPopular: true,
 	},
 	{
@@ -45,6 +48,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'ankle',
 		categorySlugs: ['for-women', 'small'],
 		image: getPlaceholder('design04'),
+		galleryVariant: 'landscape',
 		isPopular: true,
 	},
 	{
@@ -56,6 +60,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'forearm',
 		categorySlugs: ['for-women', 'small', 'with-meaning'],
 		image: getPlaceholder('design05'),
+		galleryVariant: 'portrait',
 		isPopular: true,
 	},
 	{
@@ -67,6 +72,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'arm',
 		categorySlugs: ['for-men'],
 		image: getPlaceholder('design06'),
+		galleryVariant: 'tall',
 		isPopular: true,
 	},
 	{
@@ -78,6 +84,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'shoulder',
 		categorySlugs: ['for-women', 'with-meaning'],
 		image: getPlaceholder('design07'),
+		galleryVariant: 'square',
 		isPopular: true,
 	},
 	{
@@ -89,6 +96,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'forearm',
 		categorySlugs: ['inscriptions'],
 		image: getPlaceholder('design08'),
+		galleryVariant: 'portrait',
 		isPopular: true,
 	},
 	{
@@ -100,6 +108,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'back',
 		categorySlugs: ['for-men'],
 		image: getPlaceholder('design09'),
+		galleryVariant: 'landscape',
 	},
 	{
 		id: 'design-flower-realism',
@@ -110,6 +119,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'leg',
 		categorySlugs: ['for-women'],
 		image: getPlaceholder('design10'),
+		galleryVariant: 'tall',
 	},
 	{
 		id: 'design-compass-geo',
@@ -120,6 +130,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'chest',
 		categorySlugs: ['for-men', 'with-meaning'],
 		image: getPlaceholder('design11'),
+		galleryVariant: 'portrait',
 	},
 	{
 		id: 'design-anchor-minimal',
@@ -130,6 +141,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'wrist',
 		categorySlugs: ['small', 'for-men'],
 		image: getPlaceholder('design12'),
+		galleryVariant: 'square',
 	},
 ]
 

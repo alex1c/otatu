@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Hero } from '@/components/ui/hero'
-import { SectionHeading } from '@/components/ui/section-heading'
-import { CategoryChip } from '@/components/ui/category-chip'
+import { DiscoveryChips } from '@/components/ui/discovery-chips'
 import { TattooGallery } from '@/components/ui/tattoo-gallery'
 import { TryOnCTA } from '@/components/ui/try-on-cta'
 import { EditorialCard } from '@/components/ui/editorial-card'
-import { CollectionRow } from '@/components/ui/collection-row'
+import { CollectionGrid } from '@/components/ui/collection-grid'
 import { categories } from '@/data/fixtures/categories'
 import { getPopularDesigns, getDesignsByIds } from '@/data/fixtures/designs'
 import { collections, articles } from '@/data/fixtures/articles'
@@ -47,57 +47,58 @@ export default async function HomePage({ params }: HomePageProps) {
 	const dictionary = getDictionary(locale)
 	const popularDesigns = getPopularDesigns()
 
+	const designsByCollection = new Map(
+		collections.map((collection) => [
+			collection.id,
+			getDesignsByIds(collection.designIds),
+		]),
+	)
+
 	return (
 		<>
 			<Hero locale={locale} dictionary={dictionary} />
 
-			{/* Quick categories — horizontal scroll chips */}
+			{/* Compact discovery chips — navigation aid, not a section */}
+			<div className="container-app pb-6 md:pb-8">
+				<DiscoveryChips
+					items={categories.map((category) => ({
+						label: category.label,
+						href: `/${locale}/tattoo?category=${category.slug}`,
+					}))}
+				/>
+			</div>
+
+			{/* Image-led collections */}
+			<section className="container-app pb-8 md:pb-10">
+				<CollectionGrid
+					collections={collections}
+					designsByCollection={designsByCollection}
+					locale={locale}
+				/>
+			</section>
+
+			{/* Main discovery gallery — central visual element */}
 			<section className="container-app pb-10 md:pb-14">
-				<SectionHeading title={dictionary.home.quickCategories} />
-				<div className="chips-scroll">
-					{categories.map((category) => (
-						<CategoryChip
-							key={category.id}
-							label={category.label}
-							href={`/${locale}/tattoo?category=${category.slug}`}
-						/>
-					))}
+				<div className="flex items-baseline justify-between gap-4 mb-4 md:mb-5">
+					<h2 className="font-brand text-xl sm:text-2xl font-semibold tracking-tight">
+						{dictionary.home.popularSketches}
+					</h2>
+					<Link
+						href={`/${locale}/tattoo`}
+						className="text-xs sm:text-sm text-text-muted hover:text-text-primary transition-colors shrink-0"
+					>
+						{dictionary.common.viewAll}
+					</Link>
 				</div>
-			</section>
-
-			{/* Curated collections */}
-			<section className="container-app pb-10 md:pb-14 space-y-10">
-				<SectionHeading
-					title={dictionary.home.collections}
-					viewAllHref={`/${locale}/tattoo`}
-					viewAllLabel={dictionary.common.viewAll}
-				/>
-				{collections.map((collection) => (
-					<CollectionRow
-						key={collection.id}
-						collection={collection}
-						designs={getDesignsByIds(collection.designIds)}
-						locale={locale}
-					/>
-				))}
-			</section>
-
-			{/* Popular sketches masonry gallery */}
-			<section className="container-app pb-12 md:pb-16">
-				<SectionHeading
-					title={dictionary.home.popularSketches}
-					viewAllHref={`/${locale}/tattoo`}
-					viewAllLabel={dictionary.common.viewAll}
-				/>
 				<TattooGallery
 					designs={popularDesigns}
 					locale={locale}
 					priorityCount={4}
+					layout="editorial"
 				/>
 			</section>
 
-			{/* Try-on CTA block */}
-			<section className="container-app pb-12 md:pb-16">
+			<section className="container-app pb-10 md:pb-14">
 				<TryOnCTA
 					locale={locale}
 					title={dictionary.home.tryOnBlockTitle}
@@ -106,10 +107,12 @@ export default async function HomePage({ params }: HomePageProps) {
 				/>
 			</section>
 
-			{/* Editorial guides */}
-			<section className="container-app pb-16 md:pb-24">
-				<SectionHeading title={dictionary.home.guides} />
-				<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{/* Editorial — pushed below visual discovery */}
+			<section className="container-app pb-14 md:pb-20">
+				<h2 className="font-brand text-lg sm:text-xl font-semibold tracking-tight mb-5 text-text-secondary">
+					{dictionary.home.guides}
+				</h2>
+				<div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 					{articles.map((article) => (
 						<EditorialCard key={article.id} article={article} />
 					))}

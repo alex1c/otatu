@@ -15,10 +15,10 @@ export function CategoryChip({
 	onClick,
 }: CategoryChipProps) {
 	const className = [
-		'inline-flex shrink-0 items-center rounded-full px-4 py-2 text-sm font-medium transition-colors min-h-[40px]',
+		'inline-flex shrink-0 items-center rounded-full px-3 py-1.5 text-xs font-medium transition-colors',
 		isActive
-			? 'bg-accent text-text-inverse'
-			: 'bg-bg-elevated text-text-secondary border border-border-subtle hover:border-border-strong hover:text-text-primary',
+			? 'bg-accent/90 text-text-inverse'
+			: 'text-text-muted hover:text-text-secondary bg-transparent',
 	].join(' ')
 
 	if (href) {
