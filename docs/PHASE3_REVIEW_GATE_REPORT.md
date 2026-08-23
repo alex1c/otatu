@@ -3,7 +3,7 @@
 **Status:** READY FOR FINAL PHASE 3 ACCEPTANCE  
 **Branch:** `phase3/first-launch-and-tryon-mvp`  
 **Review base:** `cf5df12`  
-**Remediation commit:** (pending)  
+**Remediation HEAD:** `6dcac9e`  
 **Date:** 2026-08-23
 
 ---
@@ -136,5 +136,8 @@ phase3-review-screenshots    PASS
 ## Git
 
 - branch: `phase3/first-launch-and-tryon-mvp`
+- final HEAD: `6dcac9e`
+- working tree: clean
+- push: yes
 - merge = NO
 - deploy = NO
