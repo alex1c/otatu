@@ -1,5 +1,5 @@
 /**
- * Playwright test for try-on technical spike.
+ * Playwright test for try-on MVP editor.
  * Run: node scripts/tryon-spike-test.mjs
  * Requires: npm run build && npm run start (or auto-starts)
  */
@@ -12,6 +12,7 @@ import { spawn } from 'node:child_process'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = join(__dirname, '..')
 const testImage = join(root, 'public', 'images', 'tryon', 'tryon-preview.webp')
+const customDesign = join(root, 'public', 'images', 'designs', 'design-02.webp')
 
 async function isServerUp(baseUrl) {
 	try {
@@ -63,7 +64,7 @@ async function main() {
 	})
 
 	try {
-		await page.goto(`${baseUrl}/ru/try-tattoo`, {
+		await page.goto(`${baseUrl}/ru/try-tattoo?design=snake-blackwork`, {
 			waitUntil: 'networkidle',
 			timeout: 60_000,
 		})
@@ -80,6 +81,23 @@ async function main() {
 		})
 		console.log('✓ editor shell loads')
 
+		await page.waitForSelector('[data-testid="tryon-design-picker"]', {
+			timeout: 15_000,
+		})
+		console.log('✓ design picker visible')
+
+		const stage = page.locator('[data-testid="tryon-stage-container"]')
+		await stage.waitFor({ state: 'attached', timeout: 15_000 })
+
+		await page.waitForFunction(
+			() =>
+				document
+					.querySelector('[data-testid="tryon-stage-container"]')
+					?.getAttribute('data-design-slug') === 'snake-blackwork',
+			{ timeout: 15_000 },
+		)
+		console.log('✓ deep-link preselects design slug')
+
 		const fileInput = page.locator('[data-testid="tryon-upload-input"]')
 		await fileInput.setInputFiles(testImage)
 
@@ -92,8 +110,34 @@ async function main() {
 		await canvas.waitFor({ state: 'attached', timeout: 10_000 })
 		console.log('✓ konva canvas renders')
 
+		await page.locator('[data-testid="tryon-design-wolf-minimal"]').click()
+		await page.waitForFunction(
+			() =>
+				document
+					.querySelector('[data-testid="tryon-stage-container"]')
+					?.getAttribute('data-design-slug') === 'wolf-minimal',
+			{ timeout: 10_000 },
+		)
+		console.log('✓ bundled design selection works')
+
+		await page.locator('[data-testid="tryon-opacity"]').fill('40')
+		await page.locator('[data-testid="tryon-scale"]').fill('60')
+		await page.locator('[data-testid="tryon-rotation"]').fill('15')
+		console.log('✓ transform sliders respond')
+
 		await page.locator('[data-testid="tryon-reset"]').click()
 		console.log('✓ reset control works')
+
+		const customInput = page.locator('[data-testid="tryon-custom-design-input"]')
+		await customInput.setInputFiles(customDesign)
+		await page.waitForFunction(
+			() =>
+				document
+					.querySelector('[data-testid="tryon-stage-container"]')
+					?.getAttribute('data-design-slug') === 'custom',
+			{ timeout: 10_000 },
+		)
+		console.log('✓ custom design upload works')
 
 		const exportBtn = page.locator('[data-testid="tryon-export"]')
 		if (await exportBtn.isDisabled()) {
@@ -110,7 +154,7 @@ async function main() {
 		}
 		console.log('✓ no server upload for local photo')
 
-		console.log('\nTry-on spike test passed')
+		console.log('\nTry-on MVP test passed')
 	} finally {
 		await browser.close()
 		if (serverProcess) serverProcess.kill()

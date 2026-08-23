@@ -10,7 +10,8 @@
     "smoke": "node scripts/smoke-routes.mjs",
     "screenshot:validate": "node scripts/capture-screenshots.mjs",
     "test:tryon": "node scripts/tryon-unit-test.mjs && node scripts/tryon-spike-test.mjs",
-    "validate": "npm run lint && npm run build && npm run smoke && npm run test:tryon && npm run screenshot:validate"
+    "test:wave-a": "node scripts/wave-a-seo-test.mjs",
+    "validate": "npm run lint && npm run build && npm run smoke && npm run test:wave-a && npm run test:tryon && npm run screenshot:validate"
   },
   "dependencies": {
     "konva": "^10.3.1",

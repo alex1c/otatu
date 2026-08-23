@@ -4,6 +4,7 @@ import type { Collection } from '@/types/content'
 import type { TattooDesign } from '@/types/content'
 import type { Locale } from '@/types/content'
 import { resolveImageUrl } from '@/lib/images/resolve-image-url'
+import { getCollectionHref } from '@/lib/content/live-routes'
 
 interface CollectionGridProps {
 	collections: Collection[]
@@ -39,7 +40,7 @@ export function CollectionGrid({
 				return (
 					<Link
 						key={collection.id}
-						href={`/${locale}/tattoo`}
+						href={getCollectionHref(locale, collection.slug)}
 						className="group relative overflow-hidden rounded-2xl bg-bg-muted"
 					>
 						<div className={`relative ${aspect}`}>

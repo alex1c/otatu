@@ -55,6 +55,8 @@ export interface Dictionary {
 		upload: string
 		uploadHint: string
 		selectDesign: string
+		customDesign: string
+		customDesignHint: string
 		preview: string
 		controls: string
 		opacity: string
@@ -62,9 +64,16 @@ export interface Dictionary {
 		rotate: string
 		save: string
 		reset: string
-		proofNote: string
+		startOver: string
+		startOverConfirm: string
+		removeTattoo: string
 		privacyNote: string
-		comingSoon: string
+		errors: {
+			unsupportedType: string
+			fileTooLarge: string
+			decodeError: string
+			exportError: string
+		}
 	}
 	footer: {
 		about: string

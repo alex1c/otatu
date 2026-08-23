@@ -42,9 +42,9 @@ export const collections: Collection[] = [
 		coverImage: getPlaceholder('collArm'),
 		layoutVariant: 'wide',
 		designIds: [
-			'design-wolf-realism',
-			'design-snake-black',
+			'design-arm-blackwork',
 			'design-text-script',
+			'design-arm-linework',
 		],
 	},
 	{
@@ -56,7 +56,7 @@ export const collections: Collection[] = [
 		layoutVariant: 'portrait',
 		designIds: [
 			'design-wolf-minimal',
-			'design-moon-dot',
+			'design-rose-linework',
 			'design-anchor-minimal',
 		],
 	},

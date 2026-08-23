@@ -13,6 +13,7 @@ import { collections, articles } from '@/data/fixtures/articles'
 import { isActiveLocale } from '@/lib/i18n/config'
 import { getDictionary } from '@/lib/i18n/get-dictionary'
 import { buildPageMetadata } from '@/lib/seo/build-metadata'
+import { getCategoryHref } from '@/lib/content/live-routes'
 import type { Locale } from '@/types/content'
 
 interface HomePageProps {
@@ -63,7 +64,7 @@ export default async function HomePage({ params }: HomePageProps) {
 				<DiscoveryChips
 					items={categories.map((category) => ({
 						label: category.label,
-						href: `/${locale}/tattoo?category=${category.slug}`,
+						href: getCategoryHref(locale, category.slug),
 					}))}
 				/>
 			</div>

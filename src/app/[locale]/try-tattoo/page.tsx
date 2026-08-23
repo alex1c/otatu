@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Breadcrumbs } from '@/components/ui/breadcrumbs'
-import { TryOnSpikeLoader } from '@/components/try-on/try-on-spike-loader'
+import { TryOnEditorLoader } from '@/components/try-on/try-on-editor-loader'
 import { isActiveLocale } from '@/lib/i18n/config'
 import { getDictionary } from '@/lib/i18n/get-dictionary'
 import { buildPageMetadata } from '@/lib/seo/build-metadata'
@@ -9,6 +9,7 @@ import type { Locale } from '@/types/content'
 
 interface TryOnPageProps {
 	params: Promise<{ locale: string }>
+	searchParams: Promise<{ design?: string }>
 }
 
 export async function generateMetadata({
@@ -28,8 +29,12 @@ export async function generateMetadata({
 	})
 }
 
-export default async function TryOnPage({ params }: TryOnPageProps) {
+export default async function TryOnPage({
+	params,
+	searchParams,
+}: TryOnPageProps) {
 	const { locale: localeParam } = await params
+	const { design: designSlug } = await searchParams
 
 	if (!isActiveLocale(localeParam)) {
 		notFound()
@@ -48,32 +53,17 @@ export default async function TryOnPage({ params }: TryOnPageProps) {
 			/>
 
 			<header className="mt-4 max-w-xl">
-				<div className="flex items-center gap-2">
-					<h1 className="font-brand text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
-						{dictionary.tryOn.title}
-					</h1>
-					<span className="rounded-full bg-bg-muted px-2.5 py-0.5 text-[10px] font-medium text-text-muted uppercase tracking-wide">
-						{dictionary.tryOn.comingSoon}
-					</span>
-				</div>
+				<h1 className="font-brand text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
+					{dictionary.tryOn.title}
+				</h1>
 				<p className="mt-2 text-sm text-text-muted leading-relaxed">
 					{dictionary.tryOn.subtitle}
 				</p>
 			</header>
 
-			<TryOnSpikeLoader
-				labels={{
-					upload: dictionary.tryOn.step1,
-					uploadHint: dictionary.tryOn.uploadHint,
-					preview: dictionary.tryOn.preview,
-					controls: dictionary.tryOn.controls,
-					opacity: dictionary.tryOn.opacity,
-					size: dictionary.tryOn.size,
-					rotate: dictionary.tryOn.rotate,
-					save: dictionary.tryOn.save,
-					reset: dictionary.tryOn.reset,
-					proofNote: dictionary.tryOn.proofNote,
-				}}
+			<TryOnEditorLoader
+				dictionary={dictionary}
+				initialDesignSlug={designSlug ?? null}
 			/>
 
 			<aside className="mt-8 rounded-xl bg-bg-secondary/50 p-4 flex gap-3">

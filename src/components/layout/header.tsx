@@ -11,11 +11,10 @@ interface HeaderProps {
 export function Header({ locale, dictionary }: HeaderProps) {
 	const navItems = [
 		{ href: `/${locale}/tattoo`, label: dictionary.nav.ideas },
-		{ href: `/${locale}/tattoo`, label: dictionary.nav.sketches },
+		{ href: `/${locale}/small-tattoos`, label: 'Маленькие' },
+		{ href: `/${locale}/style/minimalism`, label: dictionary.nav.styles },
+		{ href: `/${locale}/body/arm`, label: dictionary.nav.places },
 		{ href: `/${locale}/tattoo/wolf`, label: dictionary.nav.meanings },
-		{ href: `/${locale}/tattoo`, label: dictionary.nav.styles },
-		{ href: `/${locale}/tattoo`, label: dictionary.nav.places },
-		{ href: `/${locale}/tattoo`, label: dictionary.nav.inscriptions },
 	]
 
 	return (

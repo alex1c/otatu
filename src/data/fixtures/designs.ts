@@ -77,7 +77,7 @@ export const designs: TattooDesign[] = [
 	},
 	{
 		id: 'design-arm-blackwork',
-		slug: 'arm-blackwork',
+		slug: 'snake-blackwork',
 		title: 'Змея — blackwork',
 		motifSlug: 'snake',
 		styleSlug: 'blackwork',
@@ -123,15 +123,16 @@ export const designs: TattooDesign[] = [
 		galleryVariant: 'portrait',
 	},
 	{
-		id: 'design-flower-realism',
-		slug: 'flower-realism',
-		title: 'Надписи на руке',
-		motifSlug: 'text',
-		styleSlug: 'minimalism',
-		bodyPartSlug: 'leg',
-		categorySlugs: ['for-women', 'inscriptions'],
+		id: 'design-rose-linework',
+		slug: 'rose-linework',
+		title: 'Роза — linework',
+		motifSlug: 'rose',
+		styleSlug: 'linework',
+		bodyPartSlug: 'forearm',
+		categorySlugs: ['for-women', 'small', 'with-meaning'],
 		image: getPlaceholder('design10'),
 		galleryVariant: 'tall',
+		isPopular: true,
 	},
 	{
 		id: 'design-compass-geo',
@@ -174,3 +175,4 @@ export function getDesignsByMotif(motifSlug: string): TattooDesign[] {
 export function getPopularDesigns(): TattooDesign[] {
 	return designs.filter((design) => design.isPopular)
 }
+

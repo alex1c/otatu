@@ -64,7 +64,7 @@ export function TattooCard({
 						</button>
 						{showTryOn && (
 							<Link
-								href={`/${locale}/try-tattoo`}
+								href={`/${locale}/try-tattoo?design=${design.slug}`}
 								className="text-xs text-text-muted hover:text-text-primary transition-colors px-1 py-1"
 							>
 								Примерить
