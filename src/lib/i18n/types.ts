@@ -61,6 +61,8 @@ export interface Dictionary {
 		size: string
 		rotate: string
 		save: string
+		reset: string
+		proofNote: string
 		privacyNote: string
 		comingSoon: string
 	}

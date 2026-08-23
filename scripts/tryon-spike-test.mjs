@@ -1,0 +1,123 @@
+/**
+ * Playwright test for try-on technical spike.
+ * Run: node scripts/tryon-spike-test.mjs
+ * Requires: npm run build && npm run start (or auto-starts)
+ */
+import { chromium } from 'playwright'
+import { existsSync } from 'node:fs'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { spawn } from 'node:child_process'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const root = join(__dirname, '..')
+const testImage = join(root, 'public', 'images', 'tryon', 'tryon-preview.webp')
+
+async function isServerUp(baseUrl) {
+	try {
+		const res = await fetch(`${baseUrl}/ru/try-tattoo`)
+		return res.ok
+	} catch {
+		return false
+	}
+}
+
+function startServer(port) {
+	return spawn('npm', ['run', 'start', '--', '-p', String(port)], {
+		cwd: root,
+		shell: true,
+		stdio: 'ignore',
+	})
+}
+
+async function waitForServer(baseUrl, timeoutMs = 60_000) {
+	const started = Date.now()
+	while (Date.now() - started < timeoutMs) {
+		if (await isServerUp(baseUrl)) return
+		await new Promise((resolve) => setTimeout(resolve, 500))
+	}
+	throw new Error(`Server not ready at ${baseUrl}`)
+}
+
+async function main() {
+	const port = Number(process.env.PORT ?? 3000)
+	const baseUrl = process.env.BASE_URL ?? `http://127.0.0.1:${port}`
+
+	let serverProcess = null
+	if (!(await isServerUp(baseUrl))) {
+		if (!existsSync(join(root, '.next'))) {
+			throw new Error('Missing .next build — run npm run build first')
+		}
+		serverProcess = startServer(port)
+		await waitForServer(baseUrl)
+	}
+
+	const browser = await chromium.launch({ headless: true })
+	const page = await browser.newPage()
+
+	const uploadRequests = []
+	page.on('request', (req) => {
+		if (req.method() === 'POST' && !req.url().includes('_next')) {
+			uploadRequests.push(req.url())
+		}
+	})
+
+	try {
+		await page.goto(`${baseUrl}/ru/try-tattoo`, {
+			waitUntil: 'networkidle',
+			timeout: 60_000,
+		})
+
+		const h1 = await page.locator('h1').first().textContent()
+		if (!h1?.includes('Примерка тату')) {
+			throw new Error(`Unexpected H1: ${h1}`)
+		}
+		console.log('✓ route renders with correct H1')
+
+		await page.waitForSelector('[data-testid="tryon-upload-input"]', {
+			state: 'attached',
+			timeout: 45_000,
+		})
+		console.log('✓ editor shell loads')
+
+		const fileInput = page.locator('[data-testid="tryon-upload-input"]')
+		await fileInput.setInputFiles(testImage)
+
+		await page.waitForSelector('[data-photo-loaded="true"]', {
+			timeout: 15_000,
+		})
+		console.log('✓ photo loaded into editor')
+
+		const canvas = page.locator('[data-testid="tryon-stage-container"] canvas')
+		await canvas.waitFor({ state: 'attached', timeout: 10_000 })
+		console.log('✓ konva canvas renders')
+
+		await page.locator('[data-testid="tryon-reset"]').click()
+		console.log('✓ reset control works')
+
+		const exportBtn = page.locator('[data-testid="tryon-export"]')
+		if (await exportBtn.isDisabled()) {
+			throw new Error('Export button should be enabled after upload')
+		}
+
+		await exportBtn.click()
+		console.log('✓ export triggered')
+
+		if (uploadRequests.length > 0) {
+			throw new Error(
+				`Unexpected upload POST requests: ${uploadRequests.join(', ')}`,
+			)
+		}
+		console.log('✓ no server upload for local photo')
+
+		console.log('\nTry-on spike test passed')
+	} finally {
+		await browser.close()
+		if (serverProcess) serverProcess.kill()
+	}
+}
+
+main().catch((err) => {
+	console.error(err)
+	process.exit(1)
+})

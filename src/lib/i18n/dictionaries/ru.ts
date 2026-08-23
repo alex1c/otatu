@@ -67,6 +67,8 @@ export const ruDictionary: Dictionary = {
 		size: 'Размер',
 		rotate: 'Поворот',
 		save: 'Сохранить результат',
+		reset: 'Сбросить',
+		proofNote: 'Технический proof — browser-only редактор ниже',
 		privacyNote:
 			'В будущей browser-only версии фото не покидает ваше устройство. Обработка происходит локально.',
 		comingSoon: 'Скоро',
