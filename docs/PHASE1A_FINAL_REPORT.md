@@ -36,7 +36,7 @@ Feature branch and post-merge `main` (same SHA):
 
 - Feature branch final SHA: `8869d0c` (`phase1a/foundation-visual-prototype`)
 - Accepted visual remediation tip: `06f5ddb`
-- Resulting `main` SHA: `8869d0c` (before this report commit)
+- `main` / `origin/main`: tip after this report (includes FF of feature + report commits)
 - Merge strategy: fast-forward (`master` → feature tip → `main`)
 - Working tree: clean after finalize
 
