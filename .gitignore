@@ -46,3 +46,4 @@ incoming-assets/*.zip
 
 # Temporary screenshot archives (individual PNGs in docs/screenshots/ are tracked)
 docs/screenshots.zip
+docs/screenshots/review/

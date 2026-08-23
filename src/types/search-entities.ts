@@ -49,8 +49,8 @@ export interface LaunchPage {
 	primaryIntent: string
 	secondaryIntents: string[]
 	relatedPaths: string[]
-	/** P2 = Phase 2 target; live = already shipped */
-	status: 'live' | 'p2' | 'p3' | 'later'
+	/** live = shipped; p3 = Phase 3 first launch; later = deferred */
+	status: 'live' | 'p3' | 'later'
 }
 
 /** Explicit internal link rule for SEO navigation graphs. */

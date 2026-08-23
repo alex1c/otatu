@@ -191,6 +191,18 @@ body {
 	grid-template-columns: 1fr;
 }
 
+/* Prevent page scroll stealing touch while dragging tattoo on canvas */
+[data-testid='tryon-stage-container'] {
+	touch-action: none;
+	overscroll-behavior: contain;
+}
+
+[data-testid='tryon-opacity'],
+[data-testid='tryon-scale'],
+[data-testid='tryon-rotation'] {
+	min-height: 44px;
+}
+
 @media (min-width: 1024px) {
 	.try-on-grid {
 		grid-template-columns: 1fr 1.35fr 220px;
