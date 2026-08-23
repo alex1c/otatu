@@ -54,9 +54,10 @@ export const motifs: Motif[] = [
 			'design-wolf-minimal',
 			'design-wolf-geo',
 		],
+		// Only unmistakable wolf visuals — stock process shot + generated designs.
 		galleryImages: [
 			getPlaceholder('wolfGallery01'),
-			getPlaceholder('wolfGallery02'),
+			getPlaceholder('wolfSnarl'),
 			getPlaceholder('wolfGallery03'),
 		],
 		image: getPlaceholder('wolfHero'),

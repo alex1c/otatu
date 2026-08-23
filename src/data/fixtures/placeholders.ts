@@ -106,7 +106,7 @@ const assets: Record<string, MediaAsset> = {
 	design01: {
 		id: 'design-01',
 		src: '/images/designs/design-01.webp',
-		alt: 'Wolf tattoo on skin — realism',
+		alt: 'Botanical tattoo on upper back',
 		width: 960,
 		height: 639,
 	},

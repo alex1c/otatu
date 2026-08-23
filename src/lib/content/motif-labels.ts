@@ -12,6 +12,9 @@ const motifLabels: Record<string, string> = {
 	flower: 'Цветок',
 	compass: 'Компас',
 	anchor: 'Якорь',
+	/** Neutral labels for lifestyle stock where motif is not obvious. */
+	botanical: 'Ботаника',
+	arm: 'На руке',
 }
 
 /** Returns a human-readable motif name from its slug. */
