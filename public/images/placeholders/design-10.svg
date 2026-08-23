@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600">
+  <rect width="100%" height="100%" fill="#F5F0EA"/>
+  <circle cx="240" cy="300" r="134.4" fill="none" stroke="#7A6A5A" stroke-width="1.5" opacity="0.35"/>
+  <circle cx="240" cy="300" r="80.64" fill="none" stroke="#1F1F1F" stroke-width="2" opacity="0.5"/>
+  <path d="M 132.48 300 Q 240 138.72 347.52 300" fill="none" stroke="#1F1F1F" stroke-width="2.5" opacity="0.7"/>
+  <path d="M 172.8 340.32 C 213.12 407.52 266.88 407.52 307.2 340.32" fill="none" stroke="#1F1F1F" stroke-width="2" opacity="0.6"/>
+  <line x1="105.6" y1="367.2" x2="374.4" y2="367.2" stroke="#7A6A5A" stroke-width="1" opacity="0.4"/>
+  <text x="240" y="576" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#7A6A5A" opacity="0.6">OTATU demo · design-10.svg</text>
+</svg>
