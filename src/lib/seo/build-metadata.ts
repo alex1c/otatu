@@ -31,8 +31,9 @@ export function buildPageMetadata({
 		languages[activeLocale] = `${siteUrl}/${activeLocale}${path}`
 	}
 
+	// Root layout already applies `%s | OTATU` — do not suffix again.
 	return {
-		title: `${title} | OTATU`,
+		title,
 		description,
 		alternates: {
 			canonical: canonicalUrl,

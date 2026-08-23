@@ -254,7 +254,12 @@ export function TryOnEditor({ labels, initialDesignSlug }: TryOnEditorProps) {
 			const url = URL.createObjectURL(file)
 			await loadTattooFromSrc(url)
 			setCustomDesignName(file.name)
-			setSelectedDesign({ slug: 'custom', title: file.name, src: url })
+			setSelectedDesign({
+				slug: 'custom',
+				title: file.name,
+				src: url,
+				hasTransparentBg: file.type !== 'image/jpeg',
+			})
 			if (photoElement) resetTattooTransform(stageSize)
 		} catch {
 			setError(labels.errors.decodeError)

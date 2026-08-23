@@ -5,6 +5,7 @@ import type { Locale } from '@/types/content'
 import { resolveImageUrl } from '@/lib/images/resolve-image-url'
 import { getMotifLabel, getGalleryAspectClass } from '@/lib/content/motif-labels'
 import { getStyleBySlug } from '@/data/fixtures/styles'
+import { TRYON_CATALOG } from '@/lib/try-on/design-catalog'
 
 interface TattooCardProps {
 	design: TattooDesign
@@ -27,6 +28,11 @@ export function TattooCard({
 	const motifHref = `/${locale}/tattoo/${design.motifSlug}`
 	const motifLabel = getMotifLabel(design.motifSlug)
 	const aspectClass = getGalleryAspectClass(design.galleryVariant)
+	/** Only deep-link designs that exist as try-on overlays. */
+	const isTryOnReady = TRYON_CATALOG.some((item) => item.slug === design.slug)
+	const tryOnHref = isTryOnReady
+		? `/${locale}/try-tattoo?design=${design.slug}`
+		: `/${locale}/try-tattoo`
 
 	return (
 		<article className="group relative">
@@ -64,7 +70,7 @@ export function TattooCard({
 						</button>
 						{showTryOn && (
 							<Link
-								href={`/${locale}/try-tattoo?design=${design.slug}`}
+								href={tryOnHref}
 								className="text-xs text-text-muted hover:text-text-primary transition-colors px-1 py-1"
 							>
 								Примерить

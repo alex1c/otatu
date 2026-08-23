@@ -45,3 +45,15 @@ Simple attribution for assets used in the visual starter pack.
 |---|---|
 | `article-01.svg` | Guide card — awaiting editorial photo |
 | `article-03.svg` | Guide card — awaiting editorial photo |
+
+## Phase 3 media gaps (next iteration)
+
+Do **not** mass-generate. Needed slots for production-quality Wave A polish:
+
+| Slot | Why |
+|---|---|
+| Dedicated rose tattoo on skin (1–2 photos) | Current media has no clear rose motif; rose page uses honest floral/placement context only |
+| OTATU rose sketch (transparent PNG/WebP) | Try-On + motif gallery |
+| Fine-line / coiled snake sketches (transparent) | `design-06` is strong skin photo but not an overlay asset |
+| Transparent versions of wolf/anchor/compass/bird designs | Bundled Try-On assets currently sit on opaque studio backgrounds |
+| Extra arm/forearm variety beyond `design-04/06/08` | Reduce cross-page repetition of the same 3–4 arm photos |

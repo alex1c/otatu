@@ -64,7 +64,7 @@ async function main() {
 	})
 
 	try {
-		await page.goto(`${baseUrl}/ru/try-tattoo?design=snake-blackwork`, {
+		await page.goto(`${baseUrl}/ru/try-tattoo?design=wolf-geometric`, {
 			waitUntil: 'networkidle',
 			timeout: 60_000,
 		})
@@ -86,17 +86,31 @@ async function main() {
 		})
 		console.log('✓ design picker visible')
 
-		const stage = page.locator('[data-testid="tryon-stage-container"]')
-		await stage.waitFor({ state: 'attached', timeout: 15_000 })
-
 		await page.waitForFunction(
 			() =>
 				document
 					.querySelector('[data-testid="tryon-stage-container"]')
-					?.getAttribute('data-design-slug') === 'snake-blackwork',
+					?.getAttribute('data-design-slug') === 'wolf-geometric',
 			{ timeout: 15_000 },
 		)
 		console.log('✓ deep-link preselects design slug')
+
+		// Unknown slug safely falls back to default bundled design
+		await page.goto(`${baseUrl}/ru/try-tattoo?design=not-a-real-design`, {
+			waitUntil: 'networkidle',
+			timeout: 60_000,
+		})
+		await page.waitForSelector('[data-testid="tryon-stage-container"]', {
+			timeout: 15_000,
+		})
+		await page.waitForFunction(
+			() =>
+				document
+					.querySelector('[data-testid="tryon-stage-container"]')
+					?.getAttribute('data-design-slug') === 'wolf-minimal',
+			{ timeout: 15_000 },
+		)
+		console.log('✓ unknown design slug falls back to default')
 
 		const fileInput = page.locator('[data-testid="tryon-upload-input"]')
 		await fileInput.setInputFiles(testImage)
@@ -110,12 +124,12 @@ async function main() {
 		await canvas.waitFor({ state: 'attached', timeout: 10_000 })
 		console.log('✓ konva canvas renders')
 
-		await page.locator('[data-testid="tryon-design-wolf-minimal"]').click()
+		await page.locator('[data-testid="tryon-design-anchor-minimal"]').click()
 		await page.waitForFunction(
 			() =>
 				document
 					.querySelector('[data-testid="tryon-stage-container"]')
-					?.getAttribute('data-design-slug') === 'wolf-minimal',
+					?.getAttribute('data-design-slug') === 'anchor-minimal',
 			{ timeout: 10_000 },
 		)
 		console.log('✓ bundled design selection works')

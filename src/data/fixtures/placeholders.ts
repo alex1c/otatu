@@ -106,7 +106,7 @@ const assets: Record<string, MediaAsset> = {
 	design01: {
 		id: 'design-01',
 		src: '/images/designs/design-01.webp',
-		alt: 'Botanical tattoo on upper back',
+		alt: 'Волк и ботаника на верхней части спины',
 		width: 960,
 		height: 639,
 	},
@@ -141,7 +141,7 @@ const assets: Record<string, MediaAsset> = {
 	design06: {
 		id: 'design-06',
 		src: '/images/designs/design-06.webp',
-		alt: 'Blackwork tattoo on arm',
+		alt: 'Змея и цветы — blackwork на руке',
 		width: 800,
 		height: 1553,
 	},
@@ -169,7 +169,7 @@ const assets: Record<string, MediaAsset> = {
 	design10: {
 		id: 'design-10',
 		src: '/images/designs/design-10.webp',
-		alt: 'Floral tattoo with flowers',
+		alt: 'Надпись на ноге — lettering tattoo',
 		width: 800,
 		height: 1200,
 	},

@@ -1,12 +1,22 @@
-import type { Motif } from '@/types/content'
+import type { Motif, MediaAsset } from '@/types/content'
 import { getPlaceholder } from '@/data/fixtures/placeholders'
 
-/** Motif pages content — shared archetype for Wave A motifs. */
+/** Builds a media asset with an honest, context-specific alt text. */
+function withAlt(key: Parameters<typeof getPlaceholder>[0], alt: string): MediaAsset {
+	return { ...getPlaceholder(key), alt }
+}
+
+/**
+ * Motif pages content — shared archetype for Wave A motifs.
+ * Image assignments must match visible motif (no false captions).
+ */
 export const motifs: Motif[] = [
 	{
 		id: 'motif-wolf',
 		slug: 'wolf',
 		title: 'Тату волк',
+		shortName: 'волк',
+		ideasPhrase: 'с волком',
 		intro:
 			'Волк — один из самых популярных мотивов в тату-культуре. Сильный, узнаваемый символ свободы, верности и инстинкта.',
 		semanticTags: ['Свобода', 'Сила', 'Верность', 'Независимость'],
@@ -50,6 +60,7 @@ export const motifs: Motif[] = [
 			'design-wolf-minimal',
 			'design-wolf-geo',
 		],
+		tryOnDesignSlug: 'wolf-minimal',
 		galleryImages: [
 			getPlaceholder('wolfGallery01'),
 			getPlaceholder('wolfSnarl'),
@@ -61,101 +72,114 @@ export const motifs: Motif[] = [
 		id: 'motif-snake',
 		slug: 'snake',
 		title: 'Тату змея',
+		shortName: 'змея',
+		ideasPhrase: 'со змеёй',
 		intro:
-			'Змея — гибкий мотив с сильным визуальным ритмом. Подходит для обвивающих композиций на руке, предплечье и плече.',
+			'Змея — гибкий мотив с сильным визуальным ритмом. Хорошо работает в обвивающих композициях на руке и предплечье.',
 		semanticTags: ['Трансформация', 'Защита', 'Цикличность', 'Сила'],
 		meanings: [
-			'Трансформация и обновление — ассоциация со сменой «кожи»',
-			'Защита и инстинкт — образ хищника, который держит дистанцию',
-			'Цикличность — линия змеи хорошо повторяет изгибы тела',
-			'Сила без лишней агрессии — мотив может быть и спокойным, и драматичным',
+			'Трактовки зависят от культуры и личного контекста — универсального «значения змеи» нет',
+			'Часто связывают с трансформацией и обновлением — образ смены «кожи»',
+			'Линия змеи хорошо повторяет изгибы тела — поэтому мотив любят для обвивающих композиций',
+			'Может выглядеть спокойно или драматично: от тонкого контура до плотного blackwork',
 		],
 		variations: [
 			{
 				id: 'var-snake-blackwork',
 				title: 'Blackwork змея',
-				description: 'Контрастная змея с крупными элементами на руке.',
-				image: getPlaceholder('design06'),
-			},
-			{
-				id: 'var-snake-linework',
-				title: 'Fine-line змея',
-				description: 'Тонкий контур — аккуратный формат для предплечья.',
-				image: getPlaceholder('design04'),
+				description:
+					'Контрастная змея с крупными элементами — читается на руке и предплечье.',
+				image: withAlt('design06', 'Змея blackwork на руке'),
 			},
 			{
 				id: 'var-snake-floral',
 				title: 'Змея и цветы',
-				description: 'Сочетание змеи с ботаническими элементами.',
-				image: getPlaceholder('design06'),
-			},
-			{
-				id: 'var-snake-coiled',
-				title: 'Coiled snake',
-				description: 'Обвивающая композиция вдоль руки.',
-				image: getPlaceholder('hero01'),
+				description:
+					'Змея в цветочной композиции — мягкий контраст к чешуе и линиям.',
+				image: withAlt(
+					'design06',
+					'Змея и цветы — blackwork композиция на руке',
+				),
 			},
 		],
 		bodyPartSlugs: ['arm', 'forearm', 'shoulder', 'chest'],
 		styleSlugs: ['blackwork', 'linework', 'traditional', 'dotwork'],
 		relatedSlugs: ['wolf', 'rose'],
-		designIds: ['design-snake-blackwork', 'design-arm-linework'],
+		designIds: ['design-snake-blackwork'],
+		// design-06 is a skin photo, not a transparent sketch — do not deep-link it.
+		tryOnDesignSlug: null,
 		galleryImages: [
-			getPlaceholder('design06'),
-			getPlaceholder('hero01'),
-			getPlaceholder('design04'),
+			withAlt('design06', 'Змея blackwork на руке'),
+			withAlt('collArm', 'Тату на руке — пример размещения'),
+			withAlt('design08', 'Надписи на руке — соседний формат для этой зоны'),
 		],
-		image: getPlaceholder('design06'),
+		image: withAlt('design06', 'Змея blackwork на руке'),
 	},
 	{
 		id: 'motif-rose',
 		slug: 'rose',
 		title: 'Тату роза',
+		shortName: 'роза',
+		ideasPhrase: 'с розой',
 		intro:
-			'Роза — универсальный мотив для тату: от минималистичного контурa до детализированных композиций с листьями и надписями.',
+			'Роза — популярный цветочный мотив: от лаконичного контура до детализированных композиций с листьями и текстом. Значение почти всегда личное — не сводится только к «любви».',
 		semanticTags: ['Красота', 'Контраст', 'Память', 'Нежность'],
 		meanings: [
-			'Красота и контраст — мягкий мотив с выразительным силуэтом',
+			'Красота и контраст — мягкий силуэт с выразительной формой',
 			'Личная история — часто выбирают как символ памяти или этапа жизни',
-			'Композиции с текстом — роза хорошо сочетается с надписями',
+			'Композиции с текстом — цветочный мотив хорошо сочетается с надписями',
 			'Масштаб от мини до крупного — мотив гибко адаптируется к зоне',
 		],
 		variations: [
 			{
-				id: 'var-rose-linework',
-				title: 'Fine-line роза',
-				description: 'Тонкий контур и лёгкая графика.',
-				image: getPlaceholder('design10'),
+				id: 'var-rose-floral-arm',
+				title: 'Цветы на руке',
+				description:
+					'Цветочная композиция на руке — близкий визуальный контекст к мотиву розы.',
+				image: withAlt(
+					'design06',
+					'Цветочная композиция на руке (в паре со змеёй)',
+				),
 			},
 			{
-				id: 'var-rose-botanical',
-				title: 'Ботаническая роза',
-				description: 'Роза в окружении листьев и ботаники.',
-				image: getPlaceholder('design01'),
+				id: 'var-rose-small-wrist',
+				title: 'Маленький символ на запястье',
+				description:
+					'Компактный формат на запястье — типичный масштаб для мини-розы.',
+				image: withAlt(
+					'collMeaning',
+					'Маленькая тату на запястье — пример масштаба',
+				),
 			},
 			{
-				id: 'var-rose-lettering',
-				title: 'Роза и надпись',
-				description: 'Сочетание цветочного мотива с текстом.',
-				image: getPlaceholder('design10'),
-			},
-			{
-				id: 'var-rose-minimal',
-				title: 'Минималистичная роза',
-				description: 'Небольшой символ на запястье или предплечье.',
-				image: getPlaceholder('collMeaning'),
+				id: 'var-rose-minimal-arm',
+				title: 'Минимализм на руке',
+				description:
+					'Тонкая линия и много воздуха — частый подход к маленьким цветочным эскизам.',
+				image: withAlt(
+					'design05',
+					'Минималистичная тату на руке — пример fine-line масштаба',
+				),
 			},
 		],
 		bodyPartSlugs: ['forearm', 'wrist', 'shoulder', 'chest'],
 		styleSlugs: ['linework', 'minimalism', 'realism', 'blackwork'],
 		relatedSlugs: ['wolf', 'snake'],
-		designIds: ['design-rose-linework', 'design-botanical-back'],
+		// No dedicated rose sketch in the current media set — avoid false design cards.
+		designIds: [],
+		tryOnDesignSlug: null,
 		galleryImages: [
-			getPlaceholder('design10'),
-			getPlaceholder('collMeaning'),
-			getPlaceholder('design05'),
+			withAlt(
+				'design06',
+				'Цветочная композиция на руке — визуальный контекст для розы',
+			),
+			withAlt('collMeaning', 'Маленькая тату на запястье'),
+			withAlt('hero03', 'Минималистичная line-art тату на руке'),
 		],
-		image: getPlaceholder('design10'),
+		image: withAlt(
+			'design06',
+			'Цветочная композиция на руке — визуальный контекст для розы',
+		),
 	},
 ]
 
@@ -174,12 +198,10 @@ export function getMotifSlugs(): string[] {
 	return motifs.map((motif) => motif.slug)
 }
 
-/** Default try-on design slug per motif page. */
-export function getMotifDefaultDesignSlug(slug: string): string {
-	const defaults: Record<string, string> = {
-		wolf: 'wolf-minimal',
-		snake: 'snake-blackwork',
-		rose: 'rose-linework',
-	}
-	return defaults[slug] ?? 'wolf-minimal'
+/**
+ * Default try-on design slug for a motif page.
+ * Returns null when no suitable transparent bundled design exists.
+ */
+export function getMotifDefaultDesignSlug(slug: string): string | null {
+	return getMotifBySlug(slug)?.tryOnDesignSlug ?? null
 }

@@ -56,8 +56,8 @@ export const collections: Collection[] = [
 		layoutVariant: 'portrait',
 		designIds: [
 			'design-wolf-minimal',
-			'design-rose-linework',
 			'design-anchor-minimal',
+			'design-lettering-leg',
 		],
 	},
 	{

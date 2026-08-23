@@ -9,7 +9,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/breadcrumb-jsonld'
 import { getDesignsByMotif } from '@/data/fixtures/designs'
 import { getStylesBySlugs } from '@/data/fixtures/styles'
 import { getBodyPartsBySlugs } from '@/data/fixtures/body-parts'
-import { getRelatedMotifs, getMotifBySlug, getMotifDefaultDesignSlug } from '@/data/fixtures/motifs'
+import { getRelatedMotifs, getMotifBySlug } from '@/data/fixtures/motifs'
 import { filterLiveBodyPartSlugs, filterLiveStyleSlugs } from '@/lib/content/live-routes'
 import { resolveImageUrl } from '@/lib/images/resolve-image-url'
 import type { Locale } from '@/types/content'
@@ -37,8 +37,9 @@ export function MotifPageContent({
 		getMotifBySlug(item.slug),
 	)
 
-	const motifName = motif.title.replace('Тату ', '').toLowerCase()
-	const defaultDesign = getMotifDefaultDesignSlug(slug)
+	const tryOnHref = motif.tryOnDesignSlug
+		? `/${locale}/try-tattoo?design=${motif.tryOnDesignSlug}`
+		: `/${locale}/try-tattoo`
 
 	const breadcrumbItems = [
 		{ label: dictionary.common.breadcrumbHome, href: `/${locale}` },
@@ -69,7 +70,7 @@ export function MotifPageContent({
 
 			<section className="mt-10 md:mt-12">
 				<h2 className="font-brand text-lg sm:text-xl font-semibold tracking-tight mb-4">
-					Что означает {motifName}
+					Что означает {motif.shortName}
 				</h2>
 				<ul className="grid gap-2 sm:grid-cols-2">
 					{motif.meanings.map((meaning) => (
@@ -83,17 +84,19 @@ export function MotifPageContent({
 				</ul>
 			</section>
 
-			<section className="mt-10 md:mt-12">
-				<h2 className="font-brand text-lg sm:text-xl font-semibold tracking-tight mb-4 md:mb-5">
-					Идеи тату с {motifName}
-				</h2>
-				<TattooGallery
-					designs={designs}
-					locale={locale}
-					layout="editorial"
-					priorityCount={3}
-				/>
-			</section>
+			{designs.length > 0 && (
+				<section className="mt-10 md:mt-12">
+					<h2 className="font-brand text-lg sm:text-xl font-semibold tracking-tight mb-4 md:mb-5">
+						Идеи тату {motif.ideasPhrase}
+					</h2>
+					<TattooGallery
+						designs={designs}
+						locale={locale}
+						layout="editorial"
+						priorityCount={3}
+					/>
+				</section>
+			)}
 
 			<section className="mt-10 md:mt-12">
 				<h2 className="font-brand text-lg sm:text-xl font-semibold tracking-tight mb-4">
@@ -168,9 +171,9 @@ export function MotifPageContent({
 
 			<div className="mt-10 md:mt-12">
 				<CTA
-					title={`${dictionary.motif.tryMotif} ${motifName}`}
-					primaryLabel="Примерить этот эскиз"
-					primaryHref={`/${locale}/try-tattoo?design=${defaultDesign}`}
+					title={`Примерить эскиз ${motif.ideasPhrase}`}
+					primaryLabel="Примерить эскиз"
+					primaryHref={tryOnHref}
 					variant="dark"
 				/>
 			</div>

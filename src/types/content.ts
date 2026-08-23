@@ -25,6 +25,10 @@ export interface Motif {
 	slug: string
 	title: string
 	intro: string
+	/** Short nominative name for headings, e.g. «змея». */
+	shortName: string
+	/** Phrase for «Идеи тату …» heading, e.g. «со змеёй». */
+	ideasPhrase: string
 	/** Short semantic tags shown under the H1. */
 	semanticTags: string[]
 	meanings: string[]
@@ -33,6 +37,11 @@ export interface Motif {
 	styleSlugs: string[]
 	relatedSlugs: string[]
 	designIds: string[]
+	/**
+	 * Bundled try-on design slug when a suitable overlay exists.
+	 * Null = CTA opens Try-On without promising a specific motif design.
+	 */
+	tryOnDesignSlug: string | null
 	/** Hero gallery images for editorial visual composition. */
 	galleryImages: MediaAsset[]
 	image: MediaAsset
