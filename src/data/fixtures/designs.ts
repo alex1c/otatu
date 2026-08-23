@@ -1,7 +1,7 @@
 import type { TattooDesign } from '@/types/content'
 import { getPlaceholder } from '@/data/fixtures/placeholders'
 
-/** Demo tattoo designs — varied gallery variants for editorial masonry. */
+/** Demo tattoo designs — mixed stock photos + generated OTATU designs. */
 export const designs: TattooDesign[] = [
 	{
 		id: 'design-wolf-realism',
@@ -12,7 +12,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'forearm',
 		categorySlugs: ['for-men', 'with-meaning'],
 		image: getPlaceholder('design01'),
-		galleryVariant: 'portrait',
+		galleryVariant: 'landscape',
 		isPopular: true,
 	},
 	{
@@ -40,21 +40,21 @@ export const designs: TattooDesign[] = [
 		isPopular: true,
 	},
 	{
-		id: 'design-rose-minimal',
-		slug: 'rose-minimal',
-		title: 'Роза — линии',
-		motifSlug: 'rose',
+		id: 'design-arm-linework',
+		slug: 'arm-linework',
+		title: 'Fine-line на руке',
+		motifSlug: 'text',
 		styleSlug: 'linework',
-		bodyPartSlug: 'ankle',
-		categorySlugs: ['for-women', 'small'],
+		bodyPartSlug: 'forearm',
+		categorySlugs: ['for-women', 'arm'],
 		image: getPlaceholder('design04'),
-		galleryVariant: 'landscape',
+		galleryVariant: 'tall',
 		isPopular: true,
 	},
 	{
-		id: 'design-moon-dot',
-		slug: 'moon-dotwork',
-		title: 'Луна — dotwork',
+		id: 'design-arm-dotwork',
+		slug: 'arm-dotwork',
+		title: 'Dotwork на руке',
 		motifSlug: 'moon',
 		styleSlug: 'dotwork',
 		bodyPartSlug: 'forearm',
@@ -64,9 +64,9 @@ export const designs: TattooDesign[] = [
 		isPopular: true,
 	},
 	{
-		id: 'design-snake-black',
-		slug: 'snake-blackwork',
-		title: 'Змея — blackwork',
+		id: 'design-arm-blackwork',
+		slug: 'arm-blackwork',
+		title: 'Blackwork на руке',
 		motifSlug: 'snake',
 		styleSlug: 'blackwork',
 		bodyPartSlug: 'arm',
@@ -90,7 +90,7 @@ export const designs: TattooDesign[] = [
 	{
 		id: 'design-text-script',
 		slug: 'script-text',
-		title: 'Надпись — script',
+		title: 'Надписи на руке',
 		motifSlug: 'text',
 		styleSlug: 'minimalism',
 		bodyPartSlug: 'forearm',
@@ -108,7 +108,7 @@ export const designs: TattooDesign[] = [
 		bodyPartSlug: 'back',
 		categorySlugs: ['for-men'],
 		image: getPlaceholder('design09'),
-		galleryVariant: 'landscape',
+		galleryVariant: 'portrait',
 	},
 	{
 		id: 'design-flower-realism',

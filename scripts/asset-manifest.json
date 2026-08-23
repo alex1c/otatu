@@ -1,0 +1,240 @@
+{
+  "manifest": [
+    {
+      "id": "wolf-moon",
+      "path": "/images/wolf/wolf-moon.webp",
+      "width": 906,
+      "height": 1440,
+      "source": "generated"
+    },
+    {
+      "id": "wolf-snarl",
+      "path": "/images/wolf/wolf-snarl.webp",
+      "width": 888,
+      "height": 1440,
+      "source": "generated"
+    },
+    {
+      "id": "wolf-geo",
+      "path": "/images/wolf/wolf-geo.webp",
+      "width": 816,
+      "height": 1440,
+      "source": "generated"
+    },
+    {
+      "id": "wolf-minimal",
+      "path": "/images/wolf/wolf-minimal.webp",
+      "width": 870,
+      "height": 1440,
+      "source": "generated"
+    },
+    {
+      "id": "wolf-g03",
+      "path": "/images/wolf/wolf-g03.webp",
+      "width": 921,
+      "height": 1440,
+      "source": "generated"
+    },
+    {
+      "id": "design-03",
+      "path": "/images/designs/design-03.webp",
+      "width": 762,
+      "height": 1425,
+      "source": "generated"
+    },
+    {
+      "id": "design-07",
+      "path": "/images/designs/design-07.webp",
+      "width": 744,
+      "height": 1425,
+      "source": "generated"
+    },
+    {
+      "id": "design-09",
+      "path": "/images/designs/design-09.webp",
+      "width": 735,
+      "height": 1425,
+      "source": "generated"
+    },
+    {
+      "id": "design-11",
+      "path": "/images/designs/design-11.webp",
+      "width": 732,
+      "height": 1425,
+      "source": "generated"
+    },
+    {
+      "id": "design-12",
+      "path": "/images/designs/design-12.webp",
+      "width": 729,
+      "height": 1425,
+      "source": "generated"
+    },
+    {
+      "id": "tryon-preview",
+      "path": "/images/tryon/tryon-preview.webp",
+      "width": 675,
+      "height": 1425,
+      "source": "generated"
+    },
+    {
+      "id": "design-02",
+      "path": "/images/designs/design-02.webp",
+      "width": 800,
+      "height": 1200,
+      "source": "generated",
+      "note": "cropped from wolf-minimal.png"
+    },
+    {
+      "id": "hero-01",
+      "path": "/images/hero/hero-01.webp",
+      "width": 1200,
+      "height": 1800,
+      "source": "pexels",
+      "author": "cottonbro studio",
+      "url": "https://www.pexels.com/photo/close-up-of-an-arm-tattoo-5088486/",
+      "reserve": false
+    },
+    {
+      "id": "hero-02",
+      "path": "/images/hero/hero-02.webp",
+      "width": 1200,
+      "height": 1800,
+      "source": "pexels",
+      "author": "RDNE Stock project",
+      "url": "https://www.pexels.com/photo/close-up-shot-of-a-woman-holding-her-hair-8182285/",
+      "reserve": false
+    },
+    {
+      "id": "hero-03",
+      "path": "/images/hero/hero-03.webp",
+      "width": 1000,
+      "height": 1498,
+      "source": "pexels",
+      "author": "Slava Kol",
+      "url": "https://www.pexels.com/photo/minimalist-line-art-tattoo-on-arm-34155039/",
+      "reserve": false
+    },
+    {
+      "id": "coll-small",
+      "path": "/images/collections/coll-small.webp",
+      "width": 1200,
+      "height": 1800,
+      "source": "pexels",
+      "author": "Michael Burrows",
+      "url": "https://www.pexels.com/photo/crop-faceless-woman-showing-tattoos-on-arm-7147839/",
+      "reserve": false
+    },
+    {
+      "id": "coll-meaning",
+      "path": "/images/collections/coll-meaning.webp",
+      "width": 1200,
+      "height": 1800,
+      "source": "pexels",
+      "author": "Leticia Ribeiro",
+      "url": "https://www.pexels.com/photo/black-wrist-tattoo-1993189/",
+      "reserve": false
+    },
+    {
+      "id": "coll-arm",
+      "path": "/images/collections/coll-arm.webp",
+      "width": 1600,
+      "height": 2133,
+      "source": "pexels",
+      "author": "Lisa",
+      "url": "https://www.pexels.com/photo/tattoo-on-arm-9079557/",
+      "reserve": true
+    },
+    {
+      "id": "design-01",
+      "path": "/images/designs/design-01.webp",
+      "width": 960,
+      "height": 639,
+      "source": "pexels",
+      "author": "Nguyen Ngoc Tien",
+      "url": "https://www.pexels.com/photo/sweat-and-wolf-tattoo-27847860/",
+      "reserve": false
+    },
+    {
+      "id": "design-04",
+      "path": "/images/designs/design-04.webp",
+      "width": 1200,
+      "height": 1800,
+      "source": "pexels",
+      "author": "Kaboompics",
+      "url": "https://www.pexels.com/photo/tattoo-on-an-arm-4750247/",
+      "reserve": false
+    },
+    {
+      "id": "design-05",
+      "path": "/images/designs/design-05.webp",
+      "width": 960,
+      "height": 1440,
+      "source": "pexels",
+      "author": "Alican Helik",
+      "url": "https://www.pexels.com/photo/close-up-of-a-tattoo-on-the-back-of-the-arm-of-a-woman-17992192/",
+      "reserve": false
+    },
+    {
+      "id": "design-06",
+      "path": "/images/designs/design-06.webp",
+      "width": 800,
+      "height": 1553,
+      "source": "pexels",
+      "author": "Ralph Rabago",
+      "url": "https://www.pexels.com/photo/close-up-photo-of-woman-s-tattooed-arm-3214681/",
+      "reserve": false
+    },
+    {
+      "id": "design-08",
+      "path": "/images/designs/design-08.webp",
+      "width": 960,
+      "height": 1449,
+      "source": "pexels",
+      "author": "Skylar Kang",
+      "url": "https://www.pexels.com/photo/faceless-person-demonstrating-tattoos-on-arm-in-sunlight-6044740/",
+      "reserve": false
+    },
+    {
+      "id": "design-10",
+      "path": "/images/designs/design-10.webp",
+      "width": 800,
+      "height": 1200,
+      "source": "pexels",
+      "author": "Jonathan Borba",
+      "url": "https://www.pexels.com/photo/woman-with-tattoos-siting-on-grass-with-bunch-of-flowers-7237673/",
+      "reserve": false
+    },
+    {
+      "id": "wolf-g01",
+      "path": "/images/wolf/wolf-g01.webp",
+      "width": 1200,
+      "height": 1800,
+      "source": "pexels",
+      "author": "Fatih Doğrul",
+      "url": "https://www.pexels.com/photo/man-tattooing-wolf-on-arm-17573238/",
+      "reserve": false
+    },
+    {
+      "id": "wolf-g02",
+      "path": "/images/wolf/wolf-g02.webp",
+      "width": 900,
+      "height": 599,
+      "source": "pexels",
+      "author": "Nguyen Ngoc Tien",
+      "url": "https://www.pexels.com/photo/sweat-and-wolf-tattoo-27847860/",
+      "reserve": false
+    },
+    {
+      "id": "article-02",
+      "path": "/images/editorial/article-02.webp",
+      "width": 1280,
+      "height": 1920,
+      "source": "pexels",
+      "author": "Matheus Bertelli",
+      "url": "https://www.pexels.com/photo/tattoo-artist-inking-a-forearm-design-35833291/",
+      "reserve": false
+    }
+  ],
+  "manualRequired": []
+}
