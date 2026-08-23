@@ -43,3 +43,6 @@ next-env.d.ts
 # Raw incoming asset binaries — production WebP lives in public/images/
 incoming-assets/*.png
 incoming-assets/*.zip
+
+# Temporary screenshot archives (individual PNGs in docs/screenshots/ are tracked)
+docs/screenshots.zip
