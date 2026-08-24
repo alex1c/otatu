@@ -46,6 +46,13 @@ interface TryOnEditorLabels {
 		decodeError: string
 		exportError: string
 	}
+	comparison: {
+		label: string
+		before: string
+		after: string
+		toggleBefore: string
+		toggleAfter: string
+	}
 }
 
 interface TryOnEditorProps {
@@ -88,6 +95,12 @@ export function TryOnEditor({ labels, initialDesignSlug }: TryOnEditorProps) {
 	const [tattooVisible, setTattooVisible] = useState(true)
 	const [error, setError] = useState<string | null>(null)
 	const [warning, setWarning] = useState<string | null>(null)
+	/**
+	 * Mobile comparison toggle — 'after' shows the composite (default view),
+	 * 'before' shows the original photo without tattoo overlay.
+	 * On desktop, both panels are visible simultaneously.
+	 */
+	const [mobileView, setMobileView] = useState<'before' | 'after'>('after')
 
 	/** Load selected bundled or custom tattoo asset. */
 	const loadTattooFromSrc = useCallback(async (src: string) => {
@@ -326,6 +339,8 @@ export function TryOnEditor({ labels, initialDesignSlug }: TryOnEditorProps) {
 		setCustomDesignName(null)
 		setTattooVisible(true)
 		setSelectedDesign(initialDesign)
+		// Clear comparison state — Before/After only meaningful when photo is loaded.
+		setMobileView('after')
 		loadTattooFromSrc(initialDesign.src).catch(() => {
 			setError(labels.errors.decodeError)
 		})
@@ -376,18 +391,94 @@ export function TryOnEditor({ labels, initialDesignSlug }: TryOnEditorProps) {
 	}
 
 	const photoLayout = getPhotoLayout()
+	const readyCatalog = TRYON_CATALOG.filter((design) => design.hasTransparentBg)
 
 	return (
 		<div className="try-on-editor mt-6 space-y-4">
 			<div className="try-on-grid gap-4 lg:gap-5">
-				{/* Mobile order: 1 preview */}
-				<section
-					className="try-on-preview order-1"
-					aria-label={labels.preview}
+			{/* Mobile order: 1 preview — Before/After comparison section */}
+			<section
+				className="try-on-preview order-1"
+				aria-label={labels.comparison.label}
+			>
+				{/* Mobile segmented toggle — only visible when photo is loaded */}
+				{photoElement && (
+					<div
+						className="flex sm:hidden mb-2 rounded-full border border-border-subtle overflow-hidden w-fit"
+						role="group"
+						aria-label={labels.comparison.label}
+					>
+						<button
+							type="button"
+							onClick={() => setMobileView('before')}
+							className={`px-4 py-1.5 text-xs font-medium transition-colors ${
+								mobileView === 'before'
+									? 'bg-text-primary text-bg-primary'
+									: 'text-text-secondary hover:text-text-primary'
+							}`}
+							aria-pressed={mobileView === 'before'}
+							data-testid="tryon-toggle-before"
+						>
+							{labels.comparison.before}
+						</button>
+						<button
+							type="button"
+							onClick={() => setMobileView('after')}
+							className={`px-4 py-1.5 text-xs font-medium transition-colors ${
+								mobileView === 'after'
+									? 'bg-text-primary text-bg-primary'
+									: 'text-text-secondary hover:text-text-primary'
+							}`}
+							aria-pressed={mobileView === 'after'}
+							data-testid="tryon-toggle-after"
+						>
+							{labels.comparison.after}
+						</button>
+					</div>
+				)}
+
+				{/* Desktop: two-panel side-by-side comparison.
+				    Mobile: single panel controlled by toggle above. */}
+				<div
+					className={`grid gap-3 ${
+						photoElement ? 'sm:grid-cols-2' : 'grid-cols-1'
+					}`}
+					data-testid="tryon-comparison-grid"
 				>
+					{/* BEFORE panel — original photo, no tattoo overlay */}
+					{photoElement && (
+						<div
+							className={`relative rounded-2xl overflow-hidden bg-bg-muted shadow-sm ${
+								mobileView === 'after' ? 'hidden sm:block' : 'block'
+							}`}
+							style={{ aspectRatio: `${stageSize.width} / ${stageSize.height}` }}
+							data-testid="tryon-before-panel"
+							aria-label={labels.comparison.before}
+						>
+							{/* eslint-disable-next-line @next/next/no-img-element */}
+							<img
+								src={photo!.url}
+								alt={labels.comparison.before}
+								className="absolute inset-0 w-full h-full object-cover"
+								draggable={false}
+							/>
+							<span
+								className="absolute top-2 left-2 rounded-full bg-bg-primary/80 px-2 py-0.5 text-[10px] text-text-secondary"
+								aria-hidden="true"
+							>
+								{labels.comparison.before}
+							</span>
+						</div>
+					)}
+
+					{/* AFTER panel — Konva stage with tattoo overlay */}
 					<div
 						ref={containerRef}
-						className="relative rounded-2xl overflow-hidden bg-bg-muted shadow-sm min-h-[320px]"
+						className={`relative rounded-2xl overflow-hidden bg-bg-muted shadow-sm min-h-[320px] ${
+							photoElement && mobileView === 'before'
+								? 'hidden sm:block'
+								: 'block'
+						}`}
 						data-testid="tryon-stage-container"
 						data-photo-loaded={photoElement ? 'true' : 'false'}
 						data-tattoo-ready={tattooElement ? 'true' : 'false'}
@@ -462,8 +553,19 @@ export function TryOnEditor({ labels, initialDesignSlug }: TryOnEditorProps) {
 								</p>
 							</div>
 						)}
+
+						{/* After label — only visible when Before panel is also shown */}
+						{photoElement && (
+							<span
+								className="absolute top-2 left-2 rounded-full bg-bg-primary/80 px-2 py-0.5 text-[10px] text-text-secondary"
+								aria-hidden="true"
+							>
+								{labels.comparison.after}
+							</span>
+						)}
 					</div>
-				</section>
+				</div>
+			</section>
 
 				{/* Mobile order: 2 design picker */}
 				<section
@@ -475,7 +577,7 @@ export function TryOnEditor({ labels, initialDesignSlug }: TryOnEditorProps) {
 						className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 snap-x"
 						data-testid="tryon-design-picker"
 					>
-						{TRYON_CATALOG.map((design) => {
+						{readyCatalog.map((design) => {
 							const isActive = selectedDesign.slug === design.slug
 							return (
 								<button
@@ -507,6 +609,11 @@ export function TryOnEditor({ labels, initialDesignSlug }: TryOnEditorProps) {
 							)
 						})}
 					</div>
+					{readyCatalog.length === 0 && (
+						<p className="mt-2 text-[11px] text-text-muted" data-testid="tryon-ready-gap">
+							Встроенные прозрачные эскизы временно недоступны. Загрузите свой PNG/WebP с прозрачным фоном.
+						</p>
+					)}
 
 					<div className="mt-3">
 						<label className="flex items-center gap-2 rounded-xl border border-dashed border-border-subtle bg-bg-secondary/40 px-3 py-2.5 cursor-pointer hover:border-accent/30 transition-colors min-h-[44px]">

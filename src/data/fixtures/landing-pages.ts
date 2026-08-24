@@ -69,7 +69,11 @@ export const collectionLandings: CollectionLanding[] = [
 			'Fine-line и минимализм чаще всего выбирают для маленьких эскизов.',
 		],
 		categorySlugs: ['small'],
-		coverImage: getPlaceholder('collSmall'),
+		// SMALL MEDIA REMEDIATION: coll-small shows low-quality doodles — replaced with
+		// hero01 (fine-line botanical) which shows quality small tattoo format.
+		// SMALL MEDIA GAP: need 2–3 photos of quality small tattoos (flower, bird, geometric).
+		// See docs/MEDIA_GAPS.md.
+		coverImage: getPlaceholder('hero01'),
 		relatedMotifSlugs: ['wolf', 'rose', 'anchor', 'moon'],
 		relatedStyleSlugs: ['minimalism', 'linework'],
 		relatedBodyPartSlugs: ['forearm', 'wrist', 'ankle'],
@@ -94,7 +98,9 @@ export const collectionLandings: CollectionLanding[] = [
 			'Перед сеансом стоит обсудить с мастером, как эскиз будет смотреться на вашей коже.',
 		],
 		categorySlugs: ['for-women'],
-		coverImage: getPlaceholder('hero02'),
+		// WOMEN MEDIA REMEDIATION: hero02 shows cartoon cow tattoo (inappropriate).
+		// Replaced with hero03 (fine-line two-face tattoo — relevant, quality).
+		coverImage: getPlaceholder('hero03'),
 		relatedMotifSlugs: ['rose', 'wolf', 'bird'],
 		relatedStyleSlugs: ['minimalism', 'linework'],
 		relatedBodyPartSlugs: ['wrist', 'forearm', 'shoulder'],
@@ -147,7 +153,10 @@ export const bodyLandings: BodyLanding[] = [
 			'При активном образе жизни стоит учитывать зону сгиба и частоту солнечного света.',
 		],
 		subAreas: [{ label: 'Предплечье', path: '/body/forearm' }],
-		coverImage: getPlaceholder('collArm'),
+		// ARM MEDIA REMEDIATION: coll-arm (Eye of Ra, small symbol) was "WEAK" per review.
+		// design06 (snake+flowers blackwork wrapping full arm) demonstrates the diversity
+		// and scale potential of arm tattoos more compellingly.
+		coverImage: getPlaceholder('design06'),
 		relatedMotifSlugs: ['wolf', 'snake', 'rose'],
 		relatedStyleSlugs: ['minimalism', 'linework', 'blackwork'],
 		relatedCollections: [

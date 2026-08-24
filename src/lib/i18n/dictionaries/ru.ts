@@ -83,6 +83,13 @@ export const ruDictionary: Dictionary = {
 			decodeError: 'Не удалось обработать изображение. Попробуйте другой файл.',
 			exportError: 'Не удалось сохранить результат. Попробуйте ещё раз.',
 		},
+		comparison: {
+			label: 'Сравнение До / После',
+			before: 'До',
+			after: 'После',
+			toggleBefore: 'Показать без тату',
+			toggleAfter: 'Показать с тату',
+		},
 	},
 	footer: {
 		about: 'О проекте',

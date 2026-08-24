@@ -49,8 +49,9 @@ export function TryOnEditorLoader({
 				startOver: labels.startOver,
 				startOverConfirm: labels.startOverConfirm,
 				removeTattoo: labels.removeTattoo,
-				errors: labels.errors,
-			}}
-		/>
+			errors: labels.errors,
+			comparison: labels.comparison,
+		}}
+	/>
 	)
 }

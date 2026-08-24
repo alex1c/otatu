@@ -74,6 +74,13 @@ export interface Dictionary {
 			decodeError: string
 			exportError: string
 		}
+		comparison: {
+			label: string
+			before: string
+			after: string
+			toggleBefore: string
+			toggleAfter: string
+		}
 	}
 	footer: {
 		about: string

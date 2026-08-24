@@ -14,8 +14,10 @@ const assets: Record<string, MediaAsset> = {
 	},
 	hero02: {
 		id: 'hero-02',
+		// NOTE: hero-02 contains a small cartoon mascot tattoo on upper arm.
+		// Not suitable as a featured hero — avoid using as primary cover for quality pages.
 		src: '/images/hero/hero-02.webp',
-		alt: 'Woman showing wrist tattoo detail',
+		alt: 'Небольшая символичная тату на руке',
 		width: 1200,
 		height: 1800,
 	},
@@ -91,8 +93,12 @@ const assets: Record<string, MediaAsset> = {
 	},
 	collSmall: {
 		id: 'coll-small',
+		// NOTE: coll-small shows three avant-garde small tattoos (abstract faces, fish, leg motif).
+		// Identified as low-quality "doodle" content during Phase 3 review.
+		// Not suitable as cover for small-tattoos or minimalism pages.
+		// Kept in registry but removed from coverImage assignments.
 		src: '/images/collections/coll-small.webp',
-		alt: 'Подборка — маленькие тату на руке',
+		alt: 'Маленькие авангардные тату на руке',
 		width: 1200,
 		height: 1800,
 	},

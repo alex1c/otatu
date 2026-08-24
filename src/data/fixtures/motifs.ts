@@ -88,17 +88,27 @@ export const motifs: Motif[] = [
 				id: 'var-snake-blackwork',
 				title: 'Blackwork змея',
 				description:
-					'Контрастная змея с крупными элементами — читается на руке и предплечье.',
-				image: withAlt('design06', 'Змея blackwork на руке'),
+					'Контрастная змея обвивает руку — плотный blackwork, характерный для этого мотива.',
+				image: withAlt('design06', 'Змея blackwork — обвивающая композиция на руке'),
 			},
 			{
 				id: 'var-snake-floral',
 				title: 'Змея и цветы',
 				description:
-					'Змея в цветочной композиции — мягкий контраст к чешуе и линиям.',
+					'Змея в цветочной композиции — мягкий контраст чешуи и лепестков.',
 				image: withAlt(
 					'design06',
-					'Змея и цветы — blackwork композиция на руке',
+					'Змея и пионы — blackwork композиция на предплечье',
+				),
+			},
+			{
+				id: 'var-snake-arm-context',
+				title: 'Обвивающая композиция',
+				description:
+					'Форма змеи хорошо следует изгибам руки — популярный вариант для длинного предплечья.',
+				image: withAlt(
+					'hero03',
+					'Fine-line тату на предплечье — пример обвивающего формата',
 				),
 			},
 		],
@@ -109,9 +119,9 @@ export const motifs: Motif[] = [
 		// design-06 is a skin photo, not a transparent sketch — do not deep-link it.
 		tryOnDesignSlug: null,
 		galleryImages: [
-			withAlt('design06', 'Змея blackwork на руке'),
-			withAlt('collArm', 'Тату на руке — пример размещения'),
-			withAlt('design08', 'Надписи на руке — соседний формат для этой зоны'),
+			withAlt('design06', 'Змея blackwork на руке — обвивающая композиция'),
+			withAlt('design06', 'Змея и пионы — детальная blackwork на предплечье'),
+			withAlt('collArm', 'Тату на предплечье — пример размещения'),
 		],
 		image: withAlt('design06', 'Змея blackwork на руке'),
 	},
@@ -132,13 +142,13 @@ export const motifs: Motif[] = [
 		],
 		variations: [
 			{
-				id: 'var-rose-floral-arm',
-				title: 'Цветы на руке',
+				id: 'var-rose-botanical-arm',
+				title: 'Ботаника на руке',
 				description:
-					'Цветочная композиция на руке — близкий визуальный контекст к мотиву розы.',
+					'Fine-line ботанический орнамент — лёгкий подход к цветочной тематике.',
 				image: withAlt(
-					'design06',
-					'Цветочная композиция на руке (в паре со змеёй)',
+					'hero01',
+					'Fine-line ботаническая тату на руке',
 				),
 			},
 			{
@@ -152,33 +162,33 @@ export const motifs: Motif[] = [
 				),
 			},
 			{
-				id: 'var-rose-minimal-arm',
-				title: 'Минимализм на руке',
+				id: 'var-rose-linework-forearm',
+				title: 'Fine-line на предплечье',
 				description:
 					'Тонкая линия и много воздуха — частый подход к маленьким цветочным эскизам.',
 				image: withAlt(
-					'design05',
-					'Минималистичная тату на руке — пример fine-line масштаба',
+					'hero03',
+					'Fine-line тату на предплечье — пример лаконичного масштаба',
 				),
 			},
 		],
 		bodyPartSlugs: ['forearm', 'wrist', 'shoulder', 'chest'],
 		styleSlugs: ['linework', 'minimalism', 'realism', 'blackwork'],
 		relatedSlugs: ['wolf', 'snake'],
-		// No dedicated rose sketch in the current media set — avoid false design cards.
+		// ROSE MEDIA GAP: no dedicated rose photo or transparent rose design in current set.
+		// Required: 2-3 photos of real rose tattoos (fine-line, blackwork, realistic).
+		// See docs/MEDIA_GAPS.md for full specification.
 		designIds: [],
 		tryOnDesignSlug: null,
 		galleryImages: [
-			withAlt(
-				'design06',
-				'Цветочная композиция на руке — визуальный контекст для розы',
-			),
+			withAlt('hero01', 'Fine-line ботаническая тату на руке'),
 			withAlt('collMeaning', 'Маленькая тату на запястье'),
-			withAlt('hero03', 'Минималистичная line-art тату на руке'),
+			withAlt('hero03', 'Fine-line тату на предплечье'),
 		],
+		// ROSE MEDIA GAP: hero image uses fine-line botanical arm (no dedicated rose photo).
 		image: withAlt(
-			'design06',
-			'Цветочная композиция на руке — визуальный контекст для розы',
+			'hero01',
+			'Fine-line ботаническая тату на руке',
 		),
 	},
 ]

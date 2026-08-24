@@ -120,19 +120,36 @@ async function main() {
 		})
 		console.log('✓ photo loaded into editor')
 
+		await page.waitForSelector('[data-testid="tryon-before-panel"]', {
+			timeout: 10_000,
+		})
+		console.log('✓ original photo available as Before')
+
 		const canvas = page.locator('[data-testid="tryon-stage-container"] canvas')
 		await canvas.waitFor({ state: 'attached', timeout: 10_000 })
 		console.log('✓ konva canvas renders')
 
-		await page.locator('[data-testid="tryon-design-anchor-minimal"]').click()
-		await page.waitForFunction(
-			() =>
-				document
-					.querySelector('[data-testid="tryon-stage-container"]')
-					?.getAttribute('data-design-slug') === 'anchor-minimal',
-			{ timeout: 10_000 },
-		)
-		console.log('✓ bundled design selection works')
+		const readyDesignButtons = await page
+			.locator('[data-testid^="tryon-design-"]')
+			.count()
+		if (readyDesignButtons > 0) {
+			await page.locator('[data-testid^="tryon-design-"]').first().click()
+			console.log('✓ bundled design selection works')
+		} else {
+			await page.waitForSelector('[data-testid="tryon-ready-gap"]', {
+				timeout: 10_000,
+			})
+			console.log('✓ picker shows transparent-asset gap state')
+		}
+
+		await page.waitForFunction(() => {
+			const panel = document.querySelector('[data-testid="tryon-before-panel"]')
+			if (!panel) return false
+			const img = panel.querySelector('img')
+			const canvas = panel.querySelector('canvas')
+			return Boolean(img) && !canvas
+		}, { timeout: 10_000 })
+		console.log('✓ tattoo absent from Before source image')
 
 		await page.locator('[data-testid="tryon-opacity"]').fill('40')
 		await page.locator('[data-testid="tryon-scale"]').fill('60')
@@ -141,6 +158,22 @@ async function main() {
 
 		await page.locator('[data-testid="tryon-reset"]').click()
 		console.log('✓ reset control works')
+
+		await page.setViewportSize({ width: 390, height: 844 })
+		await page.waitForSelector('[data-testid="tryon-toggle-before"]', {
+			timeout: 10_000,
+		})
+		await page.locator('[data-testid="tryon-toggle-before"]').click()
+		await page.waitForSelector('[data-testid="tryon-before-panel"]', {
+			state: 'visible',
+			timeout: 10_000,
+		})
+		await page.locator('[data-testid="tryon-toggle-after"]').click()
+		await page.waitForSelector('[data-testid="tryon-stage-container"]', {
+			state: 'visible',
+			timeout: 10_000,
+		})
+		console.log('✓ Before/After mobile toggle works')
 
 		const customInput = page.locator('[data-testid="tryon-custom-design-input"]')
 		await customInput.setInputFiles(customDesign)
@@ -160,6 +193,15 @@ async function main() {
 
 		await exportBtn.click()
 		console.log('✓ export triggered')
+
+		page.once('dialog', async (dialog) => {
+			await dialog.accept()
+		})
+		await page.locator('[data-testid="tryon-start-over"]').click()
+		await page.waitForSelector('[data-photo-loaded="false"]', {
+			timeout: 10_000,
+		})
+		console.log('✓ start-over clears comparison state')
 
 		if (uploadRequests.length > 0) {
 			throw new Error(

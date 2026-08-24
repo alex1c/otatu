@@ -1,143 +1,128 @@
-# OTATU Phase 3 — Review Gate Report
+# OTATU Phase 3 — Media Remediation + Try-On Before/After Report
 
-**Status:** READY FOR FINAL PHASE 3 ACCEPTANCE  
+**Status:** BLOCKED ON MEDIA ASSETS  
 **Branch:** `phase3/first-launch-and-tryon-mvp`  
-**Review base:** `cf5df12`  
-**Remediation HEAD:** `6dcac9e`  
-**Date:** 2026-08-23
+**Base HEAD:** `44d7c22`  
+**Date:** 2026-08-24
 
 ---
 
-## Content review
+## Media remediation
 
-### Pages reviewed (desktop 1440)
+### Arm (`/ru/body/arm/`)
 
-Home, Small Tattoos, Women, Men, Arm, Forearm, Minimalism, Wolf, Snake, Rose.
+- **Before problem:** weak small-symbol hero did not clearly communicate arm intent.
+- **Replacement:** hero switched to `design-06` (snake + floral blackwork wrapping arm).
+- **Source:** Pexels (Ralph Rabago), documented in `docs/IMAGE_SOURCES.md`.
+- **Remaining gap:** still needs more arm diversity photos (upper arm + medium/large).
 
-### Pages reviewed (mobile 390)
+### Minimalism (`/ru/style/minimalism/`)
 
-Home, Small Tattoos, Arm (via smoke/SSR), Minimalism (SSR), Snake, Rose (desktop + snake mobile screenshots).
+- **Before problem:** minimalism gallery mixed with non-minimal heavy motifs.
+- **Replacement:** fixtures rebalanced toward `hero-03`, `hero-01`, `coll-meaning`,
+  `design-04`, and non-minimal wolf entries were removed from minimal buckets.
+- **Source:** existing Pexels assets and existing OTATU assets.
+- **Remaining gap:** no additional dedicated tiny-botanical/minimal lettering photos.
 
-### Content issues found / fixed
+### Small Tattoos (`/ru/small-tattoos/`)
 
-| Issue | Severity | Fix |
+- **Before problem:** `coll-small` looked like low-quality doodles.
+- **Replacement:** cover switched from `coll-small` to `hero-01` and small-category
+  fixtures now prefer clean fine-line / minimal symbols.
+- **Source:** existing Pexels assets.
+- **Remaining gap:** needs 2–3 additional quality small tattoo photos.
+
+### Snake (`/ru/tattoo/snake/`)
+
+- **Before problem:** snake intent could be interpreted as mixed/weak.
+- **Replacement:** snake page now explicitly centers `design-06` with snake-specific
+  captions and removes misleading non-snake visuals.
+- **Source:** existing Pexels asset `design-06`.
+- **Remaining gap:** only one strong snake photo available; needs additional snake photos.
+
+### Rose (`/ru/tattoo/rose/`)
+
+- **Before problem:** page did not clearly show rose motif.
+- **Replacement:** removed misleading assets/captions and switched to honest floral
+  context placeholders (`hero-01`, `hero-03`, `coll-meaning`) without claiming roses.
+- **Source:** existing Pexels assets.
+- **Remaining gap:** **ROSE MEDIA GAP** remains critical (no true rose photos available).
+
+---
+
+## Try-On assets
+
+| Design | Transparent | TRYON READY |
 |---|---|---|
-| Double `\| OTATU` in `<title>` (layout template + `buildPageMetadata`) | P1 | Titles no longer suffix brand; layout template owns it |
-| Grammar: «Идеи тату с змея / роза» | P1 | `shortName` + `ideasPhrase` on Motif |
-| Typo `контурa` on rose | P1 | Rewrote rose intro |
-| Snake meanings risked sounding universal | P1 | First meaning now states no universal meaning |
-| Rose reduced only to «love» risk | OK already | Kept multi-angle meanings; strengthened intro |
-| Women/Men stereotype framing | OK | Popular-choices framing already correct |
-| Small tattoos medical overclaim | OK | Cautious clarity note retained |
+| wolf-minimal | no | no |
+| wolf-geometric | no | no |
+| anchor-minimal | no | no |
+| compass-geometric | no | no |
+| bird-linework | no | no |
 
-### Semantic image issues found / fixed
-
-| Page | Issue | Fix |
-|---|---|---|
-| Snake | `design-04` (dragonfly) labeled fine-line snake; `hero-01` labeled coiled snake | Removed; snake claims only use `design-06` |
-| Rose | `design-10` (lettering) labeled rose; `design-01` (wolf) as botanical rose; duck as rose gallery | Removed false rose design card; honest floral/placement context only |
-| Catalog | `rose-linework` pointed at lettering photo | Renamed to `lettering-leg` |
-| Try-On catalog | snake skin photo + fake rose overlay | Removed; catalog = wolf×2, anchor, compass, bird |
-
-### Excessive asset reuse
-
-**Yes, moderate.** `design-06` appears on snake + rose (honest floral context) + arm galleries. Arm/forearm share a small pool (`design-04/06/08`, `coll-arm`).
-
-### Visual assets still needed (next media iteration)
-
-Documented in `docs/IMAGE_SOURCES.md`:
-
-1. Dedicated rose tattoo on skin (1–2)
-2. OTATU rose sketch with transparent background
-3. Fine-line / coiled snake transparent sketches
-4. Transparent exports of wolf/anchor/compass/bird for Try-On
-5. Extra arm/forearm variety to reduce cross-page repetition
-
-**Rose** remains visually thin for a motif page (no dedicated rose photo). Captions are honest; this is a **media gap**, not a caption lie.
+Result: picker now surfaces transparent-asset gap state and keeps custom upload flow.
+Detailed requirements are documented in `docs/MEDIA_GAPS.md`.
 
 ---
 
-## Try-On review
+## Before / After
 
-| Area | Result |
-|---|---|
-| Desktop flow | PASS — upload, picker, drag/scale/rotate/opacity, reset, custom upload, export |
-| Mobile 390 | PASS — editor usable; `touch-action: none` scoped to stage container only |
-| Bundled designs | 5 overlays (wolf-minimal, wolf-geometric, anchor-minimal, compass-geometric, bird-linework) |
-| Transparent BG | **None of the bundled designs are true transparent PNGs** — opaque studio backgrounds remain; multiply softens sticker look but does not eliminate rectangle |
-| Custom design | PASS — PNG/WebP/JPEG; JPEG shows transparency hint |
-| Multiply | Present; acceptable illusion on light skin at ~70% opacity; not photoreal AR |
-| Export | PASS (Playwright + UI); PNG download client-side |
-| Deep links | PASS — `wolf-minimal`, `wolf-geometric`; unknown → `wolf-minimal` |
-| Privacy | PASS — no photo POST/PUT/PATCH in Playwright interception |
-| Snake/Rose CTAs | Do **not** deep-link unsuitable overlays; open `/ru/try-tattoo` |
+- **Desktop:** implemented two-panel comparison (`До` and `После`) with same source photo.
+- **Mobile (390):** implemented segmented toggle (`До | После`) with no overflow.
+- **Live state:** `После` reflects current editor transform state (position, scale,
+  rotation, opacity, blend).
+- **Lifecycle:**
+  - reset updates `После`,
+  - tattoo changes update `После`,
+  - start-over clears comparison state.
+- **Export:** unchanged, still exports only `После`.
+- **Privacy:** browser-only flow preserved (no photo upload endpoints).
 
 ---
 
-## SEO
+## Media gaps
 
-| Check | Result |
-|---|---|
-| 12/12 Wave A routes HTTP 200 | PASS |
-| Exactly one H1 | PASS |
-| Unique title / description | PASS |
-| Canonical | PASS |
-| Indexable | PASS |
-| Sitemap Wave A only | PASS |
-| Future routes absent | PASS |
-| Breadcrumbs + BreadcrumbList | PASS |
-| SSR H1 + intro HTML (no JS) | PASS for small-tattoos, arm, minimalism, snake, rose |
-| Internal Wave A links | PASS (live-route filtering) |
+See `docs/MEDIA_GAPS.md`:
 
----
-
-## Performance
-
-- Konva/react-konva live in a dedicated client chunk.
-- Home / snake / arm / minimalism / small-tattoos HTML do **not** reference that chunk.
-- Try-On loads editor via `dynamic(..., { ssr: false })`.
-
----
-
-## Screenshots
-
-Location: `docs/screenshots/phase3-review/`
-
-- `home-1440.png`, `small-tattoos-1440.png`, `arm-1440.png`, `minimalism-1440.png`, `snake-1440.png`, `rose-1440.png`, `tryon-editor-1440.png`
-- `home-390.png`, `small-tattoos-390.png`, `snake-390.png`, `tryon-editor-390.png`
-
-Try-On shots captured **after** photo upload + tattoo placement.
+- dedicated rose photo set (2–3)
+- snake transparent design
+- rose transparent design
+- wolf/bird/compass/anchor transparent designs
+- additional quality small tattoo photos
+- additional arm diversity photos
 
 ---
 
 ## Validation
 
-```
+Executed:
+
+```text
 npm run lint                 PASS
 npm run build                PASS
 npm run smoke                PASS
 npm run test:wave-a          PASS
 npm run test:tryon           PASS
 npm run screenshot:validate  PASS
-phase3-review-screenshots    PASS
+node scripts/phase3-review-screenshots.mjs  PASS
 ```
 
 ---
 
-## Explicitly confirmed
+## Screenshots
 
-- no database / CMS / AI API / EN content
-- no mass page generation
-- no merge
-- no production deployment
+Location: `docs/screenshots/phase3-media-remediation/`
+
+- desktop: `arm-1440.png`, `minimalism-1440.png`, `small-tattoos-1440.png`,
+  `snake-1440.png`, `rose-1440.png`, `tryon-before-after-1440.png`
+- mobile: `small-tattoos-390.png`, `snake-390.png`, `rose-390.png`,
+  `tryon-before-after-390.png`
 
 ---
 
 ## Git
 
 - branch: `phase3/first-launch-and-tryon-mvp`
-- final HEAD: `6dcac9e`
-- working tree: clean
-- push: yes
-- merge = NO
-- deploy = NO
+- current HEAD (before remediation commit): `44d7c22`
+- merge: NO
+- deploy: NO

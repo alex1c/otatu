@@ -1,7 +1,6 @@
 /**
- * Phase 3 human-review screenshots.
- * Captures desktop 1440 + mobile 390 review set after real try-on setup.
- * Run: node scripts/phase3-review-screenshots.mjs
+ * Phase 3 media-remediation screenshots for human review.
+ * Captures requested desktop/mobile pages and Try-On Before/After state.
  */
 import { chromium } from 'playwright'
 import { mkdirSync, existsSync } from 'node:fs'
@@ -11,22 +10,25 @@ import { spawn } from 'node:child_process'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = join(__dirname, '..')
-const outDir = join(root, 'docs', 'screenshots', 'phase3-review')
+const outDir = join(root, 'docs', 'screenshots', 'phase3-media-remediation')
 const testImage = join(root, 'public', 'images', 'tryon', 'tryon-preview.webp')
 
 const desktopPages = [
-	{ name: 'home-1440', path: '/ru', h1: null },
-	{ name: 'small-tattoos-1440', path: '/ru/small-tattoos', h1: 'Маленькие тату' },
 	{ name: 'arm-1440', path: '/ru/body/arm', h1: 'Тату на руке' },
-	{ name: 'minimalism-1440', path: '/ru/style/minimalism', h1: 'Минималистичные тату' },
+	{
+		name: 'minimalism-1440',
+		path: '/ru/style/minimalism',
+		h1: 'Минималистичные тату',
+	},
+	{ name: 'small-tattoos-1440', path: '/ru/small-tattoos', h1: 'Маленькие тату' },
 	{ name: 'snake-1440', path: '/ru/tattoo/snake', h1: 'Тату змея' },
 	{ name: 'rose-1440', path: '/ru/tattoo/rose', h1: 'Тату роза' },
 ]
 
 const mobilePages = [
-	{ name: 'home-390', path: '/ru', h1: null },
 	{ name: 'small-tattoos-390', path: '/ru/small-tattoos', h1: 'Маленькие тату' },
 	{ name: 'snake-390', path: '/ru/tattoo/snake', h1: 'Тату змея' },
+	{ name: 'rose-390', path: '/ru/tattoo/rose', h1: 'Тату роза' },
 ]
 
 async function isServerUp(baseUrl) {
@@ -57,70 +59,76 @@ async function waitForServer(baseUrl, timeoutMs = 60_000) {
 
 async function waitImages(page) {
 	await page.waitForLoadState('networkidle')
-	await page.evaluate(async () => {
-		const images = [...document.images]
-		await Promise.all(
-			images.map((img) =>
-				img.complete
-					? Promise.resolve()
-					: new Promise((resolve) => {
-							img.addEventListener('load', resolve, { once: true })
-							img.addEventListener('error', resolve, { once: true })
-						}),
+	await page.waitForFunction(
+		() =>
+			Array.from(document.images).every(
+				(img) => img.complete && (img.naturalWidth > 0 || img.currentSrc.includes('.svg')),
 			),
-		)
-	})
+		{ timeout: 45_000 },
+	)
+}
+
+async function assertPathAndH1(page, expectedPath, expectedH1) {
+	const pathname = new URL(page.url()).pathname
+	if (pathname !== expectedPath) {
+		throw new Error(`Path mismatch: expected ${expectedPath}, got ${pathname}`)
+	}
+	const h1 = (await page.locator('h1').first().textContent())?.trim() ?? ''
+	if (!h1.includes(expectedH1)) {
+		throw new Error(`H1 mismatch for ${expectedPath}: got "${h1}"`)
+	}
 }
 
 async function capturePage(page, baseUrl, item, width, height) {
 	await page.setViewportSize({ width, height })
-	const url = `${baseUrl}${item.path}`
-	await page.goto(url, { waitUntil: 'networkidle', timeout: 60_000 })
+	await page.goto(`${baseUrl}${item.path}`, { waitUntil: 'networkidle', timeout: 60_000 })
+	await assertPathAndH1(page, item.path, item.h1)
+	await waitImages(page)
+	await page.screenshot({ path: join(outDir, `${item.name}.png`), fullPage: false })
+	console.log(`✓ ${item.name}`)
+}
 
-	const current = page.url()
-	if (!current.includes(item.path)) {
-		throw new Error(`URL mismatch for ${item.name}: ${current}`)
-	}
+async function captureTryOnComparison(page, baseUrl, fileName, width, height, mobile) {
+	await page.setViewportSize({ width, height })
+	await page.goto(`${baseUrl}/ru/try-tattoo?design=anchor-minimal`, {
+		waitUntil: 'networkidle',
+		timeout: 60_000,
+	})
+	await assertPathAndH1(page, '/ru/try-tattoo', 'Примерка тату')
 
-	if (item.h1) {
-		const h1 = await page.locator('h1').first().textContent()
-		if (!h1?.includes(item.h1)) {
-			throw new Error(`H1 mismatch for ${item.name}: ${h1}`)
-		}
+	await page.waitForSelector('[data-testid="tryon-upload-input"]', { timeout: 45_000 })
+	await page.locator('[data-testid="tryon-upload-input"]').setInputFiles(testImage)
+	await page.waitForSelector('[data-photo-loaded="true"]', { timeout: 15_000 })
+	await page.waitForSelector('[data-testid="tryon-stage-container"]', { timeout: 15_000 })
+
+	if (mobile) {
+		await page.waitForSelector('[data-testid="tryon-before-panel"]', {
+			state: 'attached',
+			timeout: 15_000,
+		})
+		await page.locator('[data-testid="tryon-toggle-before"]').click()
+		await page.waitForSelector('[data-testid="tryon-before-panel"]', {
+			state: 'visible',
+			timeout: 10_000,
+		})
+		await page.locator('[data-testid="tryon-toggle-after"]').click()
+		await page.waitForSelector('[data-testid="tryon-stage-container"]', {
+			state: 'visible',
+			timeout: 10_000,
+		})
+	} else {
+		await page.waitForSelector('[data-testid="tryon-before-panel"]', {
+			state: 'visible',
+			timeout: 15_000,
+		})
 	}
 
 	await waitImages(page)
 	await page.screenshot({
-		path: join(outDir, `${item.name}.png`),
+		path: join(outDir, `${fileName}.png`),
 		fullPage: false,
 	})
-	console.log(`✓ ${item.name}`)
-}
-
-async function captureTryOn(page, baseUrl, name, width, height) {
-	await page.setViewportSize({ width, height })
-	await page.goto(`${baseUrl}/ru/try-tattoo?design=wolf-minimal`, {
-		waitUntil: 'networkidle',
-		timeout: 60_000,
-	})
-
-	const h1 = await page.locator('h1').first().textContent()
-	if (!h1?.includes('Примерка тату')) {
-		throw new Error(`Try-on H1 mismatch: ${h1}`)
-	}
-
-	await page.waitForSelector('[data-testid="tryon-upload-input"]', {
-		timeout: 45_000,
-	})
-	await page.locator('[data-testid="tryon-upload-input"]').setInputFiles(testImage)
-	await page.waitForSelector('[data-photo-loaded="true"]', { timeout: 15_000 })
-	await page.waitForTimeout(800)
-
-	await page.screenshot({
-		path: join(outDir, `${name}.png`),
-		fullPage: false,
-	})
-	console.log(`✓ ${name}`)
+	console.log(`✓ ${fileName}`)
 }
 
 async function main() {
@@ -145,14 +153,28 @@ async function main() {
 		for (const item of desktopPages) {
 			await capturePage(page, baseUrl, item, 1440, 900)
 		}
-		await captureTryOn(page, baseUrl, 'tryon-editor-1440', 1440, 900)
+		await captureTryOnComparison(
+			page,
+			baseUrl,
+			'tryon-before-after-1440',
+			1440,
+			900,
+			false,
+		)
 
 		for (const item of mobilePages) {
 			await capturePage(page, baseUrl, item, 390, 844)
 		}
-		await captureTryOn(page, baseUrl, 'tryon-editor-390', 390, 844)
+		await captureTryOnComparison(
+			page,
+			baseUrl,
+			'tryon-before-after-390',
+			390,
+			844,
+			true,
+		)
 
-		console.log(`\nSaved review screenshots to ${outDir}`)
+		console.log(`\nSaved remediation screenshots to ${outDir}`)
 	} finally {
 		await browser.close()
 		if (serverProcess) serverProcess.kill()
