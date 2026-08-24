@@ -2,6 +2,7 @@
 
 **Status:** READY FOR FINAL PHASE 3 VISUAL ACCEPTANCE  
 **Branch:** `phase3/first-launch-and-tryon-mvp`  
+**HEAD:** `b368e0a`  
 **Date:** 2026-08-24
 
 ---
