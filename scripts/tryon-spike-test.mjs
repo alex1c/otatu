@@ -64,7 +64,7 @@ async function main() {
 	})
 
 	try {
-		await page.goto(`${baseUrl}/ru/try-tattoo?design=wolf-geometric`, {
+		await page.goto(`${baseUrl}/ru/try-tattoo?design=wolf-transparent`, {
 			waitUntil: 'networkidle',
 			timeout: 60_000,
 		})
@@ -90,10 +90,27 @@ async function main() {
 			() =>
 				document
 					.querySelector('[data-testid="tryon-stage-container"]')
-					?.getAttribute('data-design-slug') === 'wolf-geometric',
+					?.getAttribute('data-design-slug') === 'wolf-transparent',
 			{ timeout: 15_000 },
 		)
 		console.log('✓ deep-link preselects design slug')
+
+		// Motif deep-links for rose / snake / wolf
+		for (const slug of ['rose-transparent', 'snake-transparent', 'wolf-transparent']) {
+			await page.goto(`${baseUrl}/ru/try-tattoo?design=${slug}`, {
+				waitUntil: 'networkidle',
+				timeout: 60_000,
+			})
+			await page.waitForFunction(
+				(expected) =>
+					document
+						.querySelector('[data-testid="tryon-stage-container"]')
+						?.getAttribute('data-design-slug') === expected,
+				slug,
+				{ timeout: 15_000 },
+			)
+			console.log(`✓ deep-link ${slug}`)
+		}
 
 		// Unknown slug safely falls back to default bundled design
 		await page.goto(`${baseUrl}/ru/try-tattoo?design=not-a-real-design`, {
@@ -107,7 +124,7 @@ async function main() {
 			() =>
 				document
 					.querySelector('[data-testid="tryon-stage-container"]')
-					?.getAttribute('data-design-slug') === 'wolf-minimal',
+					?.getAttribute('data-design-slug') === 'rose-transparent',
 			{ timeout: 15_000 },
 		)
 		console.log('✓ unknown design slug falls back to default')

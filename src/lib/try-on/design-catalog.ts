@@ -13,42 +13,48 @@ export interface TryOnCatalogDesign {
 
 /**
  * OTATU bundled designs available in the try-on editor.
- * Skin photos and mislabeled stock are excluded — they are content assets, not overlays.
+ * Media Pack v2 — only real-alpha overlays (programmatically verified).
  */
 export const TRYON_CATALOG: TryOnCatalogDesign[] = [
 	{
-		slug: 'wolf-minimal',
-		title: 'Волк — минимализм',
-		src: '/images/designs/design-02.webp',
-		hasTransparentBg: false,
+		slug: 'rose-transparent',
+		title: 'Роза — fine-line',
+		src: '/images/tryon/rose-transparent.webp',
+		hasTransparentBg: true,
 	},
 	{
-		slug: 'wolf-geometric',
-		title: 'Волк — геометрия',
-		src: '/images/designs/design-03.webp',
-		hasTransparentBg: false,
+		slug: 'snake-transparent',
+		title: 'Змея — linework',
+		src: '/images/tryon/snake-transparent.webp',
+		hasTransparentBg: true,
 	},
 	{
-		slug: 'anchor-minimal',
-		title: 'Якорь — минимализм',
-		src: '/images/designs/design-12.webp',
-		hasTransparentBg: false,
+		slug: 'wolf-transparent',
+		title: 'Волк — контур',
+		src: '/images/tryon/wolf-transparent.webp',
+		hasTransparentBg: true,
 	},
 	{
-		slug: 'compass-geometric',
-		title: 'Компас — геометрия',
-		src: '/images/designs/design-11.webp',
-		hasTransparentBg: false,
-	},
-	{
-		slug: 'bird-linework',
+		slug: 'bird-transparent',
 		title: 'Птица — linework',
-		src: '/images/designs/design-07.webp',
-		hasTransparentBg: false,
+		src: '/images/tryon/bird-transparent.webp',
+		hasTransparentBg: true,
+	},
+	{
+		slug: 'compass-transparent',
+		title: 'Компас — геометрия',
+		src: '/images/tryon/compass-transparent.webp',
+		hasTransparentBg: true,
+	},
+	{
+		slug: 'anchor-transparent',
+		title: 'Якорь — минимализм',
+		src: '/images/tryon/anchor-transparent.webp',
+		hasTransparentBg: true,
 	},
 ]
 
-export const TRYON_DEFAULT_DESIGN_SLUG = 'wolf-minimal'
+export const TRYON_DEFAULT_DESIGN_SLUG = 'rose-transparent'
 
 /** Resolves catalog entry by slug — unknown slugs fall back to default. */
 export function resolveTryOnDesign(slug?: string | null): TryOnCatalogDesign {

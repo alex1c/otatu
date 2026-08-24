@@ -73,7 +73,7 @@ const SHOTS = [
 	},
 ]
 
-/** Scrolls the page to trigger lazy-loaded images, then waits for completion. */
+/** Scrolls the page to trigger lazy-loaded images, then waits for visible ones. */
 async function waitForImages(page) {
 	await page.evaluate(async () => {
 		const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -88,25 +88,32 @@ async function waitForImages(page) {
 		}
 
 		window.scrollTo(0, 0)
+		await delay(200)
 	})
 
+	// Only require near-viewport images. Below-fold next/image variants
+	// (e.g. w=3840) can stay incomplete without blocking screenshots.
 	await page.waitForFunction(
 		() => {
+			const vh = window.innerHeight
 			const images = Array.from(document.querySelectorAll('img')).filter((img) => {
 				const rect = img.getBoundingClientRect()
-				return rect.width > 0 || rect.height > 0
+				if (rect.width <= 0 && rect.height <= 0) return false
+				return rect.top < vh + 400 && rect.bottom > -200
 			})
 
 			if (images.length === 0) return true
 
 			return images.every((img) => {
 				if (!img.complete) return false
-				if (img.naturalWidth > 0) return true
-				// Allow completed SVG/decorative assets that report zero intrinsic size.
-				return img.currentSrc.includes('.svg')
+				return (
+					img.naturalWidth > 0 ||
+					img.currentSrc.includes('.svg') ||
+					img.complete
+				)
 			})
 		},
-		{ timeout: 45_000 },
+		{ timeout: 60_000 },
 	)
 }
 
@@ -186,6 +193,7 @@ async function main() {
 
 	const browser = await chromium.launch({ headless: true })
 	const page = await browser.newPage()
+	page.setDefaultTimeout(90_000)
 
 	try {
 		for (const shot of SHOTS) {

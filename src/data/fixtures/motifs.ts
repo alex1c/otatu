@@ -60,7 +60,7 @@ export const motifs: Motif[] = [
 			'design-wolf-minimal',
 			'design-wolf-geo',
 		],
-		tryOnDesignSlug: 'wolf-minimal',
+		tryOnDesignSlug: 'wolf-transparent',
 		galleryImages: [
 			getPlaceholder('wolfGallery01'),
 			getPlaceholder('wolfSnarl'),
@@ -85,45 +85,43 @@ export const motifs: Motif[] = [
 		],
 		variations: [
 			{
-				id: 'var-snake-blackwork',
-				title: 'Blackwork змея',
-				description:
-					'Контрастная змея обвивает руку — плотный blackwork, характерный для этого мотива.',
-				image: withAlt('design06', 'Змея blackwork — обвивающая композиция на руке'),
-			},
-			{
 				id: 'var-snake-floral',
 				title: 'Змея и цветы',
 				description:
 					'Змея в цветочной композиции — мягкий контраст чешуи и лепестков.',
-				image: withAlt(
-					'design06',
-					'Змея и пионы — blackwork композиция на предплечье',
-				),
+				image: withAlt('snake01', 'Змея и цветы — blackwork на руке'),
 			},
 			{
-				id: 'var-snake-arm-context',
-				title: 'Обвивающая композиция',
+				id: 'var-snake-wrap',
+				title: 'Обвивающая змея',
 				description:
-					'Форма змеи хорошо следует изгибам руки — популярный вариант для длинного предплечья.',
-				image: withAlt(
-					'hero03',
-					'Fine-line тату на предплечье — пример обвивающего формата',
-				),
+					'Змея следует изгибу предплечья — популярный формат для длинной зоны.',
+				image: withAlt('snake02', 'Змея на предплечье — обвивающая композиция'),
+			},
+			{
+				id: 'var-snake-inner',
+				title: 'Змея на внутренней стороне',
+				description:
+					'Тонкий linework на внутренней стороне предплечья — читается в движении.',
+				image: withAlt('snake03', 'Змея на внутренней стороне предплечья'),
 			},
 		],
 		bodyPartSlugs: ['arm', 'forearm', 'shoulder', 'chest'],
 		styleSlugs: ['blackwork', 'linework', 'traditional', 'dotwork'],
 		relatedSlugs: ['wolf', 'rose'],
-		designIds: ['design-snake-blackwork'],
-		// design-06 is a skin photo, not a transparent sketch — do not deep-link it.
-		tryOnDesignSlug: null,
-		galleryImages: [
-			withAlt('design06', 'Змея blackwork на руке — обвивающая композиция'),
-			withAlt('design06', 'Змея и пионы — детальная blackwork на предплечье'),
-			withAlt('collArm', 'Тату на предплечье — пример размещения'),
+		designIds: [
+			'design-snake-blackwork',
+			'design-snake-wrap',
+			'design-snake-inner',
 		],
-		image: withAlt('design06', 'Змея blackwork на руке'),
+		tryOnDesignSlug: 'snake-transparent',
+		galleryImages: [
+			withAlt('snake01', 'Змея и цветы — blackwork на руке'),
+			withAlt('snake02', 'Змея на предплечье — обвивающая композиция'),
+			withAlt('snake03', 'Змея на внутренней стороне предплечья'),
+			withAlt('snake04', 'Змея на руке — портретный кадр'),
+		],
+		image: withAlt('snake01', 'Змея и цветы — blackwork на руке'),
 	},
 	{
 		id: 'motif-rose',
@@ -142,54 +140,52 @@ export const motifs: Motif[] = [
 		],
 		variations: [
 			{
-				id: 'var-rose-botanical-arm',
-				title: 'Ботаника на руке',
+				id: 'var-rose-traditional-arm',
+				title: 'Traditional роза на руке',
 				description:
-					'Fine-line ботанический орнамент — лёгкий подход к цветочной тематике.',
-				image: withAlt(
-					'hero01',
-					'Fine-line ботаническая тату на руке',
-				),
+					'Цветные розы с баннерами — классический traditional на предплечье.',
+				image: withAlt('rose01', 'Цветная тату роза на предплечье'),
 			},
 			{
-				id: 'var-rose-small-wrist',
-				title: 'Маленький символ на запястье',
+				id: 'var-rose-fineline',
+				title: 'Fine-line роза',
+				description:
+					'Тонкий контур розы рядом с портретом — лаконичный современный вариант.',
+				image: withAlt('rose02', 'Fine-line роза и портрет на плече'),
+			},
+			{
+				id: 'var-rose-minimal-back',
+				title: 'Минималистичная роза',
+				description:
+					'Контурная роза на верхней части спины — много воздуха вокруг мотива.',
+				image: withAlt('rose03', 'Минималистичная роза на верхней части спины'),
+			},
+			{
+				id: 'var-rose-wrist',
+				title: 'Роза на запястье',
 				description:
 					'Компактный формат на запястье — типичный масштаб для мини-розы.',
-				image: withAlt(
-					'collMeaning',
-					'Маленькая тату на запястье — пример масштаба',
-				),
-			},
-			{
-				id: 'var-rose-linework-forearm',
-				title: 'Fine-line на предплечье',
-				description:
-					'Тонкая линия и много воздуха — частый подход к маленьким цветочным эскизам.',
-				image: withAlt(
-					'hero03',
-					'Fine-line тату на предплечье — пример лаконичного масштаба',
-				),
+				image: withAlt('rose05', 'Небольшая роза на запястье'),
 			},
 		],
 		bodyPartSlugs: ['forearm', 'wrist', 'shoulder', 'chest'],
 		styleSlugs: ['linework', 'minimalism', 'realism', 'blackwork'],
 		relatedSlugs: ['wolf', 'snake'],
-		// ROSE MEDIA GAP: no dedicated rose photo or transparent rose design in current set.
-		// Required: 2-3 photos of real rose tattoos (fine-line, blackwork, realistic).
-		// See docs/MEDIA_GAPS.md for full specification.
-		designIds: [],
-		tryOnDesignSlug: null,
-		galleryImages: [
-			withAlt('hero01', 'Fine-line ботаническая тату на руке'),
-			withAlt('collMeaning', 'Маленькая тату на запястье'),
-			withAlt('hero03', 'Fine-line тату на предплечье'),
+		designIds: [
+			'design-rose-traditional',
+			'design-rose-fineline',
+			'design-rose-minimal',
+			'design-rose-otatu',
 		],
-		// ROSE MEDIA GAP: hero image uses fine-line botanical arm (no dedicated rose photo).
-		image: withAlt(
-			'hero01',
-			'Fine-line ботаническая тату на руке',
-		),
+		tryOnDesignSlug: 'rose-transparent',
+		galleryImages: [
+			withAlt('rose01', 'Цветная тату роза на предплечье'),
+			withAlt('rose02', 'Fine-line роза и портрет на плече'),
+			withAlt('rose03', 'Минималистичная роза на верхней части спины'),
+			withAlt('rose04', 'Розовая цветочная тату на спине'),
+			withAlt('tryonRose', 'Роза — эскиз OTATU'),
+		],
+		image: withAlt('rose01', 'Цветная тату роза на предплечье'),
 	},
 ]
 

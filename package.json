@@ -9,7 +9,7 @@
     "lint": "eslint",
     "smoke": "node scripts/smoke-routes.mjs",
     "screenshot:validate": "node scripts/capture-screenshots.mjs",
-    "test:tryon": "node scripts/tryon-unit-test.mjs && node scripts/tryon-spike-test.mjs",
+    "test:tryon": "node scripts/tryon-unit-test.mjs && node scripts/verify-tryon-alpha.mjs && node scripts/tryon-spike-test.mjs",
     "test:wave-a": "node scripts/wave-a-seo-test.mjs",
     "validate": "npm run lint && npm run build && npm run smoke && npm run test:wave-a && npm run test:tryon && npm run screenshot:validate"
   },

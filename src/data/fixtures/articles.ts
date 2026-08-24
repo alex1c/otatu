@@ -42,7 +42,7 @@ export const collections: Collection[] = [
 		coverImage: getPlaceholder('collArm'),
 		layoutVariant: 'wide',
 		designIds: [
-			'design-arm-blackwork',
+			'design-snake-blackwork',
 			'design-text-script',
 			'design-arm-linework',
 		],
@@ -52,12 +52,12 @@ export const collections: Collection[] = [
 		slug: 'small-tattoos',
 		title: 'Маленькие тату',
 		description: 'Компактные эскизы',
-		coverImage: getPlaceholder('collSmall'),
+		coverImage: getPlaceholder('small01'),
 		layoutVariant: 'portrait',
 		designIds: [
-			'design-wolf-minimal',
-			'design-anchor-minimal',
-			'design-lettering-leg',
+			'design-small-paw',
+			'design-small-heart',
+			'design-minimal-1111',
 		],
 	},
 	{

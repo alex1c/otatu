@@ -1,0 +1,257 @@
+{
+  "tryon": [
+    {
+      "file": "rose-transparent.png",
+      "slug": "rose-transparent",
+      "title": "Роза — fine-line",
+      "status": "TRYON READY",
+      "src": "/images/tryon/rose-transparent.webp",
+      "png": "/images/tryon/rose-transparent.png",
+      "check": {
+        "hasAlpha": true,
+        "channels": 4,
+        "width": 496,
+        "height": 560,
+        "transparentPixels": 177570,
+        "ready": true
+      }
+    },
+    {
+      "file": "snake-transparent.png",
+      "slug": "snake-transparent",
+      "title": "Змея — linework",
+      "status": "TRYON READY",
+      "src": "/images/tryon/snake-transparent.webp",
+      "png": "/images/tryon/snake-transparent.png",
+      "check": {
+        "hasAlpha": true,
+        "channels": 4,
+        "width": 500,
+        "height": 560,
+        "transparentPixels": 216433,
+        "ready": true
+      }
+    },
+    {
+      "file": "wolf-transparent.png",
+      "slug": "wolf-transparent",
+      "title": "Волк — контур",
+      "status": "TRYON READY",
+      "src": "/images/tryon/wolf-transparent.webp",
+      "png": "/images/tryon/wolf-transparent.png",
+      "check": {
+        "hasAlpha": true,
+        "channels": 4,
+        "width": 496,
+        "height": 560,
+        "transparentPixels": 161935,
+        "ready": true
+      }
+    },
+    {
+      "file": "bird-transparent.png",
+      "slug": "bird-transparent",
+      "title": "Птица — linework",
+      "status": "TRYON READY",
+      "src": "/images/tryon/bird-transparent.webp",
+      "png": "/images/tryon/bird-transparent.png",
+      "check": {
+        "hasAlpha": true,
+        "channels": 4,
+        "width": 504,
+        "height": 560,
+        "transparentPixels": 223993,
+        "ready": true
+      }
+    },
+    {
+      "file": "compass-transparent.png",
+      "slug": "compass-transparent",
+      "title": "Компас — геометрия",
+      "status": "TRYON READY",
+      "src": "/images/tryon/compass-transparent.webp",
+      "png": "/images/tryon/compass-transparent.png",
+      "check": {
+        "hasAlpha": true,
+        "channels": 4,
+        "width": 391,
+        "height": 502,
+        "transparentPixels": 142968,
+        "ready": true
+      }
+    },
+    {
+      "file": "anchor-transparent.png",
+      "slug": "anchor-transparent",
+      "title": "Якорь — минимализм",
+      "status": "TRYON READY",
+      "src": "/images/tryon/anchor-transparent.webp",
+      "png": "/images/tryon/anchor-transparent.png",
+      "check": {
+        "hasAlpha": true,
+        "channels": 4,
+        "width": 504,
+        "height": 479,
+        "transparentPixels": 194957,
+        "ready": true
+      }
+    }
+  ],
+  "stock": [
+    {
+      "id": "rose-01",
+      "path": "/images/motifs/rose-01.webp",
+      "width": 1200,
+      "height": 1800,
+      "author": "RDNE Stock project",
+      "url": "https://www.pexels.com/photo/person-with-rose-arm-tattoo-8182253/",
+      "pexelsId": 8182253
+    },
+    {
+      "id": "rose-02",
+      "path": "/images/motifs/rose-02.webp",
+      "width": 1200,
+      "height": 1800,
+      "author": "Mert Coşkun",
+      "url": "https://www.pexels.com/photo/elegant-arm-tattoo-of-woman-and-rose-29004935/",
+      "pexelsId": 29004935
+    },
+    {
+      "id": "rose-03",
+      "path": "/images/motifs/rose-03.webp",
+      "width": 1200,
+      "height": 1500,
+      "author": "BULE",
+      "url": "https://www.pexels.com/photo/black-and-white-portrait-of-rose-tattoo-on-back-34426368/",
+      "pexelsId": 34426368
+    },
+    {
+      "id": "rose-04",
+      "path": "/images/motifs/rose-04.webp",
+      "width": 1200,
+      "height": 1800,
+      "author": "jovan curayag",
+      "url": "https://www.pexels.com/photo/pink-flower-tattoo-on-a-person-s-back-7246345/",
+      "pexelsId": 7246345
+    },
+    {
+      "id": "rose-05",
+      "path": "/images/motifs/rose-05.webp",
+      "width": 1000,
+      "height": 667,
+      "author": "Ярослава Коваль",
+      "url": "https://www.pexels.com/photo/studio-shot-of-a-young-woman-with-a-tattoo-on-the-wrist-17187122/",
+      "pexelsId": 17187122
+    },
+    {
+      "id": "snake-01",
+      "path": "/images/motifs/snake-01.webp",
+      "width": 1000,
+      "height": 1941,
+      "author": "Ralph Rabago",
+      "url": "https://www.pexels.com/photo/close-up-photo-of-woman-s-tattooed-arm-3214681/",
+      "pexelsId": 3214681
+    },
+    {
+      "id": "snake-02",
+      "path": "/images/motifs/snake-02.webp",
+      "width": 1200,
+      "height": 1800,
+      "author": "Jesus Con S Silbada",
+      "url": "https://www.pexels.com/photo/person-in-red-shirt-and-jogging-pants-10216610/",
+      "pexelsId": 10216610
+    },
+    {
+      "id": "snake-03",
+      "path": "/images/motifs/snake-03.webp",
+      "width": 1200,
+      "height": 1800,
+      "author": "Jesus Con S Silbada",
+      "url": "https://www.pexels.com/photo/a-woman-in-red-shirt-with-tattoo-on-her-hand-10216618/",
+      "pexelsId": 10216618
+    },
+    {
+      "id": "snake-04",
+      "path": "/images/motifs/snake-04.webp",
+      "width": 1200,
+      "height": 1800,
+      "author": "Chúng tớ Thích chụp ảnh",
+      "url": "https://www.pexels.com/photo/portrait-of-a-brunet-17239873/",
+      "pexelsId": 17239873
+    },
+    {
+      "id": "snake-05",
+      "path": "/images/motifs/snake-05.webp",
+      "width": 1200,
+      "height": 1805,
+      "author": "Amine İspir",
+      "url": "https://www.pexels.com/photo/snake-tattoo-on-woman-arm-15288940/",
+      "pexelsId": 15288940
+    },
+    {
+      "id": "minimal-05",
+      "path": "/images/styles/minimal-05.webp",
+      "width": 1000,
+      "height": 1500,
+      "author": "Jonaorle",
+      "url": "https://www.pexels.com/photo/close-up-shot-of-tattoo-on-a-person-s-arm-9370001/",
+      "pexelsId": 9370001
+    },
+    {
+      "id": "small-01",
+      "path": "/images/collections/small-01.webp",
+      "width": 1000,
+      "height": 1333,
+      "author": "Valeriia Miller",
+      "url": "https://www.pexels.com/photo/photo-of-person-s-wrist-3155386/",
+      "pexelsId": 3155386
+    },
+    {
+      "id": "small-03",
+      "path": "/images/collections/small-03.webp",
+      "width": 1000,
+      "height": 1333,
+      "author": "Olga K",
+      "url": "https://www.pexels.com/photo/hands-of-a-woman-wearing-a-small-heart-tattoo-18807268/",
+      "pexelsId": 18807268
+    },
+    {
+      "id": "small-05",
+      "path": "/images/collections/small-05.webp",
+      "width": 1000,
+      "height": 1500,
+      "author": "ANDRÉ FELLIPE",
+      "url": "https://www.pexels.com/photo/photo-of-tattoo-near-person-s-ear-3421971/",
+      "pexelsId": 3421971
+    },
+    {
+      "id": "small-06",
+      "path": "/images/collections/small-06.webp",
+      "width": 1000,
+      "height": 1333,
+      "author": "ArtHouse Studio",
+      "url": "https://www.pexels.com/photo/crop-slim-young-woman-with-arrow-tattoo-taking-off-light-top-4348034/",
+      "pexelsId": 4348034
+    },
+    {
+      "id": "arm-02",
+      "path": "/images/body/arm-02.webp",
+      "width": 1200,
+      "height": 1800,
+      "author": "Mizuno K",
+      "url": "https://www.pexels.com/photo/close-up-of-tattoos-on-an-arm-13771084/",
+      "pexelsId": 13771084
+    },
+    {
+      "id": "arm-03",
+      "path": "/images/body/arm-03.webp",
+      "width": 1200,
+      "height": 1445,
+      "author": "Nur Demirbaş",
+      "url": "https://www.pexels.com/photo/tattoo-on-the-biceps-of-embraced-heart-17945125/",
+      "pexelsId": 17945125
+    }
+  ],
+  "failed": [],
+  "generatedAt": "2026-08-24T09:07:44.721Z"
+}
